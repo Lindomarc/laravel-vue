@@ -68037,3 +68037,7 @@ readers do not read off random characters that represent icons */
 .cyan {
   color: #6cb2eb;
 }
+
+.card-body {
+  min-height: 15rem;
+}

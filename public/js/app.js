@@ -1947,7 +1947,110 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    var _this = this;
+
+    return {
+      isEdit: false,
+      formTitle: function formTitle() {
+        if (_this.isEdit) {
+          return 'Editando Usuário';
+        }
+
+        return 'Novo Usuário';
+      },
+      tableFields: ['#', 'Nome', 'Email', 'Verificado', 'Status', ''],
+      groceryList: [{
+        id: 0,
+        text: 'Vegetables'
+      }, {
+        id: 1,
+        text: 'Cheese'
+      }, {
+        id: 2,
+        text: 'Whatever else humans are supposed to eat'
+      }]
+    };
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -37794,29 +37897,235 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "card card-primary card-outline" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h3", { staticClass: "card-title" }, [_vm._v("Usuários")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-tools" }, [
+            _c("div", { staticClass: "input-group input-group-md" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success white",
+                  attrs: {
+                    type: "button",
+                    "data-toggle": "modal",
+                    "data-target": "#formModal"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.addModal = true
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-plus fa-fw" }),
+                  _vm._v(" Adicionar\n            ")
+                ]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body table-responsive p-0" }, [
+          _c("table", { staticClass: "table table-hover text-nowrap" }, [
+            _c("thead", [
+              _c(
+                "tr",
+                _vm._l(_vm.tableFields, function(field) {
+                  return _c("th", { attrs: { name: field } }, [
+                    _vm._v(_vm._s(field))
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-footer" })
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "formModal",
+          tabindex: "-1",
+          "aria-labelledby": "formModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-dialog-centered" }, [
+          _c("form", [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c(
+                  "h5",
+                  {
+                    staticClass: "card-title",
+                    attrs: { id: "formModalLabel" }
+                  },
+                  [_vm._v(_vm._s(this.formTitle()))]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3)
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Users Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
+    return _c("tbody", [
+      _c("tr", [
+        _c("td", [_vm._v("183")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("John Doe")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("John@host.com")]),
+        _vm._v(" "),
+        _c("td", [
+          _c("span", { staticClass: "tag tag-success" }, [_vm._v("x")])
+        ]),
+        _vm._v(" "),
+        _c("td", [
+          _c("span", { staticClass: "tag tag-success" }, [_vm._v("x")])
+        ]),
+        _vm._v(" "),
+        _c("td", { staticClass: "d-flex justify-content-end" }, [
+          _c(
+            "div",
+            { staticClass: "btn-group btn-group-sm", attrs: { role: "group" } },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary dropdown-toggle ",
+                  attrs: {
+                    id: "btnGroupDrop1",
+                    type: "button",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                  }
+                },
+                [_c("i", { staticClass: " fa fa-cogs" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "dropdown-menu",
+                  attrs: { "aria-labelledby": "btnGroupDrop1" }
+                },
+                [
+                  _c(
+                    "button",
+                    { staticClass: "btn btn-success dropdown-item" },
+                    [
+                      _c("i", { staticClass: " fa fa-eye" }),
+                      _vm._v(" Perfil\n                  ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    { staticClass: "btn btn-success dropdown-item" },
+                    [
+                      _c("i", { staticClass: " fa fa-edit" }),
+                      _vm._v(" Editar\n                  ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    { staticClass: "btn btn-danger dropdown-item" },
+                    [
+                      _c("i", { staticClass: "fa fa-times" }),
+                      _vm._v(" Desativar\n                  ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    { staticClass: "btn btn-danger dropdown-item" },
+                    [
+                      _c("i", { staticClass: "fa fa-trash" }),
+                      _vm._v(" Deletar\n                  ")
+                    ]
+                  )
+                ]
               )
-            ])
-          ])
+            ]
+          )
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm._v("\n              ..\n              \n            ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [_vm._v("Salvar")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-danger",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cancelar")]
+      )
     ])
   }
 ]

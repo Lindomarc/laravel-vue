@@ -28,6 +28,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+	    $request->validate([
+	    	'name'=> 'required|min:3',
+		    'email'=> 'required|email|unique'
+	    ]);
     	$data = [
 		    'name' => $request['name'],
 		    'email' => $request['email'],

@@ -4,11 +4,23 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import Vue from "vue";
+
+import Vue from 'vue'
+window.Vue = require('vue').default;
 
 require('./bootstrap');
 
-window.Vue = require('vue').default;
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+// Make BootstrapVue available throughout your project
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
+
+
 
 
 import Form from 'vform'
@@ -18,10 +30,16 @@ import { HasError, AlertError } from 'vform/src/components/bootstrap4'
 Vue.component(HasError.name,HasError);
 Vue.component(AlertError.name,AlertError);
 
-import vSelect from 'vue-select'
-Vue.component('v-select', vSelect)
-import 'vue-select/dist/vue-select.css';
+// import vSelect from 'vue-select'
+// Vue.component('v-select', vSelect)
+// import 'vue-select/dist/vue-select.css';
+// const selectize = require('vue-selectize');
 
+import  selectize from 'vue-selectize';
+
+import 'selectize/dist/css/selectize.css'
+import VSelectize from '@isneezy/vue-selectize'
+Vue.component('v-selectize', VSelectize);
 
 /**
  * Routes imports and assigning

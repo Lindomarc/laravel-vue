@@ -68039,5 +68039,10 @@ readers do not read off random characters that represent icons */
 }
 
 .card-body {
-  min-height: 15rem;
+  padding: 0.25rem !important;
+  min-height: 15rem !important;
+}
+
+.modal-footer {
+  justify-content: space-between !important;
 }

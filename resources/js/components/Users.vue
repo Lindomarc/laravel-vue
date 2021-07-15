@@ -1,174 +1,156 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h3 class="card-title">Usuários</h3>
-            <div class="card-tools">
-              <div class="input-group input-group-md">
-
-
-                <button type="button" class="btn btn-success white" data-toggle="modal" data-target="#formModal" @click="addModal = true">
-                  <i class="fas fa-plus fa-fw"></i> Adicionar
-                </button>
-              </div>
+    <b-card-group deck>
+      <b-card header-tag="header" footer-tag="footer">
+        <template #header>
+          <div class="card-tools d-flex">
+            <div class="group input-group-md">
+              <b-button v-b-modal.addUser type="button" class="btn btn-success white">
+                <i class="fas fa-plus fa-fw"></i> Adicionar
+              </b-button>
             </div>
           </div>
-          <!-- /.card-header -->
-          <div class="card-body table-responsive p-0">
-            <table class="table table-hover text-nowrap">
-              <thead>
-              <tr>
-                <th v-for="field in tableFields" :name="field">{{ field }}</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>183</td>
-                <td>John Doe</td>
-                <td>John@host.com</td>
-                <td><span class="tag tag-success">x</span></td>
-                <td><span class="tag tag-success">x</span></td>
-                <td class="d-flex justify-content-end">
-                  <div class="btn-group btn-group-sm" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class=" fa fa-cogs"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                      <button class="btn btn-success dropdown-item">
-                        <i class=" fa fa-eye"></i> Perfil
-                      </button>
-                      <button class="btn btn-success dropdown-item">
-                        <i class=" fa fa-edit"></i> Editar
-                      </button>
-                      <button class="btn btn-danger dropdown-item">
-                        <i class="fa fa-times"></i> Desativar
-                      </button>
-                      <button class="btn btn-danger dropdown-item">
-                        <i class="fa fa-trash"></i> Deletar
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
+        </template>
+        <table class="table table-hover text-nowrap">
+          <thead>
+          <tr>
+            <th v-for="field in tableFields" :name="field">{{ field }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>183</td>
+            <td>John Doe</td>
+            <td>John@host.com</td>
+            <td><span class="tag tag-success">x</span></td>
+            <td><span class="tag tag-success">x</span></td>
+            <td class="d-flex justify-content-end">
+              <b-button-group size="sm">
+                <b-dropdown right text="" >
+                  <b-dropdown-item class="btn btn-success dropdown-item">
+                    <i class=" fa fa-eye"></i> Perfil
+                  </b-dropdown-item>
+                  <b-dropdown-item class="btn btn-success dropdown-item">
+                    <i class=" fa fa-edit"></i> Editar
+                  </b-dropdown-item>
+                  <b-dropdown-item class="btn btn-danger dropdown-item">
+                    <i class="fa fa-times"></i> Desativar
+                  </b-dropdown-item>
+                  <b-dropdown-item class="btn btn-danger dropdown-item">
+                    <i class="fa fa-trash"></i> Deletar
+                  </b-dropdown-item>
+                </b-dropdown>
+              </b-button-group>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <template #footer>
+          <em></em>
+        </template>
+      </b-card>
+    </b-card-group>
 
-          <div class="card-footer">
-
-          </div>
-          <!--  /.card-footer -->
-        </div>
-        <!-- /.card -->
-      </div>
-    </div>
     <!-- Modal -->
-    <modal-form :title="this.formTitle()" modal="formModal">
-      <form @submit.prevent="createUser">
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label for="name">Nome</label>
-              <input 
-                  v-model="form.name" 
-                  type="text" 
-                  name="name" 
-                  placeholder="" 
-                  id="name" 
-                  class="form-control" 
-                  :class="{ 'is-invalid': form.errors.has('name') }">
-              <has-error :form="form" field="name"></has-error>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <input v-model="form.email" type="text" name="email" placeholder="" id="email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-              <has-error :form="form" field="email"></has-error>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-group">
-              <label for="role">Grupo</label>
-              <v-select :options="roles" name="role" id="role"></v-select>
-              <has-error :form="form" field="role"></has-error>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-group">
-              <label for="password">Senha</label>
-              <input 
-                  v-model="form.password" 
-                  type="text" 
-                  name="password" 
-                  placeholder="" 
-                  id="password" 
-                  class="form-control" 
-                  :class="{ 'is-invalid': form.errors.has('password') }">
-              <has-error :form="form" field="password"></has-error>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="form-group">
-              <label for="password_confirm">Confirme a Senha</label>
-              <input 
-                  v-model="form.password_confirm" 
-                  type="text" 
-                  name="password_confirm" 
-                  placeholder="" 
-                  id="password_confirm" 
-                  class="form-control" 
-                  :class="{ 'is-invalid': form.errors.has('password_confirm') }">
-              <has-error :form="form" field="password_confirm"></has-error>
-            </div>
-          </div>
-        </div>
-      </form>
-    </modal-form>
+    <form @submit.prevent="create('user')">
+      <b-modal :title="this.formTitle()" id="addUser">
+
+        <b-form-group id="group-name" label="Nome:" label-for="name">
+          <b-form-input v-model="form.name" :state="validationName" id="name"></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="E-mail:" label-for="email">
+          <b-form-input v-model="form.email" type="email" name="email" :state="validateEmail" id="email"></b-form-input>
+          <has-error :form="form" field="email"></has-error>
+        </b-form-group>
+
+        <b-form-group label="Grupo" label-for="role">
+          <v-selectize v-model="form.role" :options="roles" :state="validatePassword" id="role" required></v-selectize>
+          <has-error :form="form" field="role"></has-error>
+        </b-form-group>
+
+        <b-row>
+          <b-col>
+            <b-form-group id="group-password" label="Senha:" label-for="password">
+              <b-form-input v-model="form.password" :state="validatePassword" id="password"></b-form-input>
+            </b-form-group>
+          </b-col>
+
+          <b-col>
+            <b-form-group id="group-password-confirm" label="Confirmação de Senha:" label-for="password-confirm">
+              <b-form-input v-model="form.password_confirm" :state="validatePasswordConfirm" id="password-confirm"></b-form-input>
+            </b-form-group>
+          </b-col>
+
+        </b-row>
+        <template #modal-footer="{submit, cancel}">
+          <b-button variant="primary" @click="create('user')">Salvar</b-button>
+          <b-button variant="danger" @click="cancel()">Cancelar</b-button>
+        </template>
+      </b-modal>
+    </form>
   </div>
 </template>
 
 <script>
-    export default {
-      data() {
-        return {
-          roles: [
-            'admin',
-            'user'
-          ],
-          form: new Form({
-            name: '',
-            email: '',
-            password: '',
-            role: '',
-            bio: '',
-            photo: ''
-          }),
-          isEdit: false,
-          formTitle: () => {
-            if (this.isEdit) {
-              return 'Editando Usuário'
-            }
-            return 'Novo Usuário'
-          },
-          tableFields: ['#', 'Nome', 'Email', 'Verificado', 'Status', ''],
-          groceryList: [
-            {id: 0, text: 'Vegetables'},
-            {id: 1, text: 'Cheese'},
-            {id: 2, text: 'Whatever else humans are supposed to eat'}
-          ]
+import mixins from "../submits";
+import 'selectize/dist/css/selectize.css';
+import VSelectize from '@isneezy/vue-selectize';
+
+export default {
+  mixins: [mixins],
+  data() {
+    return {
+      roles: [
+        'admin',
+        'user'
+      ],
+      form: new Form({
+        name: '',
+        email: '',
+        password: '',
+        password_confirm: '',
+        role: '',
+        bio: '',
+        photo: ''
+      }),
+      isEdit: false,
+      formTitle: () => {
+        if (this.isEdit) {
+          return 'Editando Usuário'
         }
+        return 'Novo Usuário'
       },
-      methods:{
-        createUser(){
-          this.form.post('api/user');
-        }
-      },
-      mounted() {
-        console.log('User Component mounted.')
-      }
+      tableFields: ['#', 'Nome', 'Email', 'Verificado', 'Status', ''],
+      groceryList: [
+        {id: 0, text: 'Vegetables'},
+        {id: 1, text: 'Cheese'},
+        {id: 2, text: 'Whatever else humans are supposed to eat'}
+      ]
     }
+  },
+  components: {
+    VSelectize
+  },
+  computed: {
+    validationName() {
+      return (this.form.name.length >= 3)
+    },
+    validateEmail() {
+      let parse_mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return parse_mail.test(this.form.email);
+    },
+    validatePassword() {
+      return (this.form.name.length >= 8)
+    },
+    validatePasswordConfirm() {
+      return (this.form.password === this.form.password_confirm);
+    }
+  },
+  methods: {},
+  mounted() {
+
+    //console.log('User Component mounted.')
+  }
+}
 </script>

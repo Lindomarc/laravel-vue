@@ -11,40 +11,67 @@
             </div>
           </div>
         </template>
-        <table class="table table-hover text-nowrap">
-          <thead>
-          <tr>
-            <th v-for="field in tableFields" :name="field">{{ field }}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>183</td>
-            <td>John Doe</td>
-            <td>John@host.com</td>
-            <td><span class="tag tag-success">x</span></td>
-            <td><span class="tag tag-success">x</span></td>
-            <td class="d-flex justify-content-end">
-              <b-button-group size="sm">
-                <b-dropdown right text="" >
-                  <b-dropdown-item class="btn btn-success dropdown-item">
+        <b-table striped hover :items="items" :fields="fields" responsive="sm">
+
+          <template #cell(actions)="row">
+            <div class="d-flex justify-content-end">
+              <b-button-group>
+                <b-dropdown right text="" size="sm">
+                  <b-dropdown-item class="btn btn-sm btn-success dropdown-item">
                     <i class=" fa fa-eye"></i> Perfil
                   </b-dropdown-item>
-                  <b-dropdown-item class="btn btn-success dropdown-item">
+                  <b-dropdown-item class="btn btn-sm btn-success dropdown-item">
                     <i class=" fa fa-edit"></i> Editar
                   </b-dropdown-item>
-                  <b-dropdown-item class="btn btn-danger dropdown-item">
+                  <b-dropdown-item class="btn btn-sm btn-danger dropdown-item">
                     <i class="fa fa-times"></i> Desativar
                   </b-dropdown-item>
-                  <b-dropdown-item class="btn btn-danger dropdown-item">
+                  <b-dropdown-divider></b-dropdown-divider>
+                  <b-dropdown-item class="btn btn-sm btn-danger dropdown-item">
                     <i class="fa fa-trash"></i> Deletar
                   </b-dropdown-item>
                 </b-dropdown>
               </b-button-group>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+            </div>
+          </template>
+
+        </b-table>
+
+
+        <!--<table class="table table-hover text-nowrap">-->
+        <!--  <thead>-->
+        <!--  <tr>-->
+        <!--    <th v-for="field in tableFields" :name="field">{{ field }}</th>-->
+        <!--  </tr>-->
+        <!--  </thead>-->
+        <!--  <tbody>-->
+        <!--  <tr>-->
+        <!--    <td>183</td>-->
+        <!--    <td>John Doe</td>-->
+        <!--    <td>John@host.com</td>-->
+        <!--    <td><span class="tag tag-success">x</span></td>-->
+        <!--    <td><span class="tag tag-success">x</span></td>-->
+        <!--    <td class="d-flex justify-content-end">-->
+        <!--      <b-button-group size="sm">-->
+        <!--        <b-dropdown right text="" >-->
+        <!--          <b-dropdown-item class="btn btn-success dropdown-item">-->
+        <!--            <i class=" fa fa-eye"></i> Perfil-->
+        <!--          </b-dropdown-item>-->
+        <!--          <b-dropdown-item class="btn btn-success dropdown-item">-->
+        <!--            <i class=" fa fa-edit"></i> Editar-->
+        <!--          </b-dropdown-item>-->
+        <!--          <b-dropdown-item class="btn btn-danger dropdown-item">-->
+        <!--            <i class="fa fa-times"></i> Desativar-->
+        <!--          </b-dropdown-item>-->
+        <!--          <b-dropdown-item class="btn btn-danger dropdown-item">-->
+        <!--            <i class="fa fa-trash"></i> Deletar-->
+        <!--          </b-dropdown-item>-->
+        <!--        </b-dropdown>-->
+        <!--      </b-button-group>-->
+        <!--    </td>-->
+        <!--  </tr>-->
+        <!--  </tbody>-->
+        <!--</table>-->
         <template #footer>
           <em></em>
         </template>
@@ -53,6 +80,7 @@
 
     <!-- Modal -->
     <form @submit.prevent="create('user')">
+      
       <b-modal :title="this.formTitle()" id="addUser">
 
         <b-form-group id="group-name" label="Nome:" label-for="name">
@@ -64,9 +92,9 @@
           <has-error :form="form" field="email"></has-error>
         </b-form-group>
 
-        <b-form-group label="Grupo" label-for="role">
-          <v-selectize v-model="form.role" :options="roles" :state="validatePassword" id="role" required></v-selectize>
-          <has-error :form="form" field="role"></has-error>
+        <b-form-group label="Grupo" label-for="type">
+          <v-selectize v-model="form.type" :options="types" id="type" required></v-selectize>
+          <has-error :form="form" field="type"></has-error>
         </b-form-group>
 
         <b-row>
@@ -101,7 +129,7 @@ export default {
   mixins: [mixins],
   data() {
     return {
-      roles: [
+      types: [
         'admin',
         'user'
       ],
@@ -110,7 +138,7 @@ export default {
         email: '',
         password: '',
         password_confirm: '',
-        role: '',
+        type: '',
         bio: '',
         photo: ''
       }),
@@ -126,7 +154,21 @@ export default {
         {id: 0, text: 'Vegetables'},
         {id: 1, text: 'Cheese'},
         {id: 2, text: 'Whatever else humans are supposed to eat'}
-      ]
+      ],
+      items: [
+        {id: 40, name: 'Dickerson', last_name: 'Macdonald', email: 'lorem@ipsum.to'},
+        {id: 21, name: 'Larsen', last_name: 'Shaw', email: 'lorem@ipsum.to'},
+        {id: 89, name: 'Geneva', last_name: 'Wilson', email: 'lorem@ipsum.to'},
+        {id: 38, name: 'Jami', last_name: 'Carney', email: 'lorem@ipsum.to'}
+      ],
+      fields: [
+        {key: 'id', label: '#', sortable: true, sortDirection: 'desc'},        
+        {key: 'name', label: 'Nome', sortable: true, sortDirection: 'desc'},        
+        {key: 'email', label: 'E-mail', sortable: true, class: 'text-center'},
+        {key: 'email_verified_at', label: 'Verificado', sortable: true, class: 'text-center'},
+        {key: 'status', label: 'Status', sortable: true, class: 'text-center'},
+        {key: 'actions', label: 'Actions'}
+      ],
     }
   },
   components: {

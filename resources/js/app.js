@@ -10,6 +10,19 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+
+import Form from 'vform'
+window.Form = Form;
+
+import { HasError, AlertError } from 'vform/src/components/bootstrap4'
+Vue.component(HasError.name,HasError);
+Vue.component(AlertError.name,AlertError);
+
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+import 'vue-select/dist/vue-select.css';
+
+
 /**
  * Routes imports and assigning
  */
@@ -17,8 +30,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import routes from './routes';
 
-let router = new VueRouter({
-    mode: 'history',
+const router = new VueRouter({
+    mode: "history",
     routes
 });
 // Routes End
@@ -36,6 +49,8 @@ let router = new VueRouter({
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('modal-form', require('./components/ModalFormComponent.vue').default);
+Vue.component('input-form', require('./components/FormInputComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

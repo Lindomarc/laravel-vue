@@ -7,22 +7,31 @@ export default {
             progress?this.$Progress.start():'';
             axios.get(`api/${model}`).then(({data}) => {
                 this.items = data.data;
+                this.toastMessage = 'A lista foi atualizada';
             })
-            
             progress?this.$Progress.finish():'';
         },
         create(model) {
             this.$Progress.start()
-            this.form.post(`api/${model}`).then((response) => {                
+            this.form.post(`api/${model}`).then((response) => {
                 this.$refs['createModal'].hide()
-                this.listLatest(model,false);
-                this.toast('Ele já foi listado','Item criado com sucesso', 'success');
-            }).catch((error) => {
-                //console.warn('Not good man :(');
-                this.toast('Reveja as informações no formulário','Item não foi salvo', 'danger');
-            });
-            this.$Progress.finish()
+                this.listLatest(model, false);
+                this.toastTitle = 'Item criado com sucesso';
+                this.toastVariant = 'success';
+                this.toast();
 
+            }).catch((error) => {
+                this.toastMessage = 'Reveja as informações no formulário';
+                this.toastTitle = 'Item não foi salvo';
+                this.toastVariant = 'danger';
+                //console.warn('Not good man :(');       
+
+                this.toast();
+                this.$Progress.fail();
+
+            });
+
+            this.$Progress.finish()
         },
         validateEmail(email) {
             if (email){

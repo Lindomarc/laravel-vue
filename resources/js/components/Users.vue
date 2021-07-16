@@ -55,7 +55,7 @@
         </b-form-group>
 
         <b-form-group label="E-mail:" label-for="email">
-          <b-form-input v-model="form.email" :state="validateEmail()" type="email" name="email" 
+          <b-form-input v-model="form.email" :state="validateEmail(form.email)" type="email" name="email" 
               id="email"></b-form-input>
           <has-error :form="form" field="email"></has-error>
         </b-form-group>

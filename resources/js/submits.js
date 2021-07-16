@@ -13,10 +13,10 @@ export default {
                 //console.warn('Not good man :(');
             });
         },
-        validateEmail() {
-            if (this.form.email){
+        validateEmail(email) {
+            if (email){
                 let parse_mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return parse_mail.test(this.form.email);
+                return parse_mail.test(email);
             }
         }
     },

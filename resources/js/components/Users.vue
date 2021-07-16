@@ -138,11 +138,6 @@ export default {
     VSelectize,
   },
   methods: {
-    loadUsers() {
-      axios.get("api/user").then(({data}) => {
-        this.items = data.data;
-      })
-    },
     clearForm() {
       this.form = new Form({
         name: '',
@@ -169,8 +164,7 @@ export default {
     },
   },
   created() {
-    this.loadUsers();
-    console.log('User Component created.')
+    this.listLatest('user');
   }
 }
 

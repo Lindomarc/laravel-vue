@@ -1,6 +1,11 @@
  
 export default {
     methods: {
+        listLatest(model) {
+            axios.get(`api/${model}`).then(({data}) => {
+                this.items = data.data;
+            })
+        },
         create(model) {
             this.form.post(`api/${model}`).then((response) => {
                 // console.log('Everything is awesome.');

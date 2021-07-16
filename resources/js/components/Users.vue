@@ -5,7 +5,7 @@
         <template #header>
           <div class="card-tools d-flex">
             <div class="group input-group-md">
-              <b-button v-b-modal.addUser type="button" class="btn btn-success white">
+              <b-button v-b-modal.addUser type="button" class="btn btn-success white" @click="clearForm()">
                 <i class="fas fa-plus fa-fw"></i> Adicionar
               </b-button>
             </div>
@@ -84,29 +84,33 @@
       <b-modal :title="this.formTitle()" id="addUser">
 
         <b-form-group id="group-name" label="Nome:" label-for="name">
-          <b-form-input v-model="form.name" :state="validationName" id="name"></b-form-input>
+          <b-form-input v-model="form.name" 
+               :state="validationName('name')" id="name" aria-describedby="name-live-feedback"></b-form-input>
+          <has-error :form="form" field="name"></has-error>
         </b-form-group>
 
         <b-form-group label="E-mail:" label-for="email">
-          <b-form-input v-model="form.email" type="email" name="email" :state="validateEmail" id="email"></b-form-input>
+          <b-form-input v-model="form.email" :state="validateEmail()"  type="email" name="email" id="email"></b-form-input>
           <has-error :form="form" field="email"></has-error>
         </b-form-group>
 
         <b-form-group label="Grupo" label-for="type">
-          <v-selectize v-model="form.type" :options="types" id="type" required></v-selectize>
+          <v-selectize v-model="form.type" :options="types" id="type"></v-selectize>
           <has-error :form="form" field="type"></has-error>
         </b-form-group>
 
         <b-row>
           <b-col>
             <b-form-group id="group-password" label="Senha:" label-for="password">
-              <b-form-input v-model="form.password" :state="validatePassword" id="password"></b-form-input>
+              <b-form-input type="password" v-model="form.password" :state="validatePassword()" id="password"></b-form-input>
+              <has-error :form="form" field="password"></has-error>
             </b-form-group>
           </b-col>
 
           <b-col>
-            <b-form-group id="group-password-confirm" label="Confirmação de Senha:" label-for="password-confirm">
-              <b-form-input v-model="form.password_confirm" :state="validatePasswordConfirm" id="password-confirm"></b-form-input>
+            <b-form-group id="group-password-confirmation" label="Confirmação de Senha:" label-for="password-confirmation">
+              <b-form-input type="password" v-model="form.password_confirmation" :state="validatePasswordConfirm()" id="password-confirmation"></b-form-input>
+              <has-error :form="form" field="password_confirmation"></has-error>
             </b-form-group>
           </b-col>
 
@@ -121,12 +125,16 @@
 </template>
 
 <script>
-import mixins from "../submits";
+import submits from "../submits";
 import 'selectize/dist/css/selectize.css';
 import VSelectize from '@isneezy/vue-selectize';
 
+
+import { required, minLength, email } from 'vuelidate/lib/validators'
+import {validationMixin} from "vuelidate";
+
 export default {
-  mixins: [mixins],
+  mixins: [submits,validationMixin],
   data() {
     return {
       types: [
@@ -137,10 +145,8 @@ export default {
         name: '',
         email: '',
         password: '',
-        password_confirm: '',
-        type: '',
-        bio: '',
-        photo: ''
+        password_confirmation: '',
+        type: ''
       }),
       isEdit: false,
       formTitle: () => {
@@ -149,12 +155,6 @@ export default {
         }
         return 'Novo Usuário'
       },
-      tableFields: ['#', 'Nome', 'Email', 'Verificado', 'Status', ''],
-      groceryList: [
-        {id: 0, text: 'Vegetables'},
-        {id: 1, text: 'Cheese'},
-        {id: 2, text: 'Whatever else humans are supposed to eat'}
-      ],
       items: [
         {id: 40, name: 'Dickerson', last_name: 'Macdonald', email: 'lorem@ipsum.to'},
         {id: 21, name: 'Larsen', last_name: 'Shaw', email: 'lorem@ipsum.to'},
@@ -172,27 +172,40 @@ export default {
     }
   },
   components: {
-    VSelectize
+    VSelectize,
   },
-  computed: {
-    validationName() {
-      return (this.form.name.length >= 3)
-    },
-    validateEmail() {
-      let parse_mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return parse_mail.test(this.form.email);
+  methods:{
+    clearForm(){
+      this.form = new Form({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        type: ''
+      })
     },
     validatePassword() {
-      return (this.form.name.length >= 8)
+      if (this.form.password){
+        return (this.form.password.length >= 8);  
+      }
     },
     validatePasswordConfirm() {
-      return (this.form.password === this.form.password_confirm);
-    }
+      if (this.form.password && this.form.password_confirmation) {
+        return (this.form.password === this.form.password_confirmation);
+      }
+    },
+    validationName() {
+      if (this.form.name) {
+        return (this.form.name.length >= 3);
+      }
+    },
+
+
   },
-  methods: {},
   mounted() {
 
     //console.log('User Component mounted.')
   }
 }
+
 </script>

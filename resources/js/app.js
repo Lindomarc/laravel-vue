@@ -6,27 +6,31 @@
 
 
 import Vue from 'vue'
-window.Vue = require('vue').default;
-
-require('./bootstrap');
-
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+ import Form from 'vform'
+import {AlertError, HasError} from 'vform/src/components/bootstrap4'
+import 'selectize/dist/css/selectize.css'
+import VSelectize from '@isneezy/vue-selectize'
+/**
+ * Routes imports and assigning
+ */
+import VueRouter from 'vue-router';
+import routes from './routes';
+
+window.Vue = require('vue').default;
+
+require('./bootstrap');
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
-
-
-
-import Form from 'vform'
 window.Form = Form;
 
-import { HasError, AlertError } from 'vform/src/components/bootstrap4'
 Vue.component(HasError.name,HasError);
 Vue.component(AlertError.name,AlertError);
 
@@ -34,26 +38,16 @@ Vue.component(AlertError.name,AlertError);
 // Vue.component('v-select', vSelect)
 // import 'vue-select/dist/vue-select.css';
 // const selectize = require('vue-selectize');
-
-import  selectize from 'vue-selectize';
-
-import 'selectize/dist/css/selectize.css'
-import VSelectize from '@isneezy/vue-selectize'
 Vue.component('v-selectize', VSelectize);
 
-/**
- * Routes imports and assigning
- */
-import VueRouter from 'vue-router';
+
 Vue.use(VueRouter);
-import routes from './routes';
 
 const router = new VueRouter({
     mode: "history",
     routes
 });
 // Routes End
-
 
 /**
  * The following block of code may be used to automatically register your

@@ -15,7 +15,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper"  id="app">
-
+  <vue-progress-bar></vue-progress-bar>
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -131,6 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="content-wrapper">
     <!-- Main content -->
     <div class="content">
+
       <div class="container-fluid">
         <section class="content-header">
           <div class="container-fluid">

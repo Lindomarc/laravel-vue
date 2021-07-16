@@ -14,6 +14,8 @@ import Form from 'vform'
 import {AlertError, HasError} from 'vform/src/components/bootstrap4'
 import 'selectize/dist/css/selectize.css'
 import VSelectize from '@isneezy/vue-selectize'
+import VueProgressBar from 'vue-progressbar'
+
 /**
  * Routes imports and assigning
  */
@@ -40,6 +42,11 @@ Vue.component(AlertError.name,AlertError);
 // const selectize = require('vue-selectize');
 Vue.component('v-selectize', VSelectize);
 
+
+Vue.use(VueProgressBar, {
+    color: 'green',
+    failedColor: 'red'
+})
 
 Vue.use(VueRouter);
 

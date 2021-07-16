@@ -3,26 +3,29 @@ import toast from "./toast";
 export default {
     mixins: [toast],
     methods: {
+        translate(key){
+            return key;
+        },
         listLatest(model, progress = true) {
             progress?this.$Progress.start():'';
             axios.get(`api/${model}`).then(({data}) => {
                 this.items = data.data;
-                this.toastMessage = 'A lista foi atualizada';
+                this.toastMessage = this.translate('The list has been updated');
             })
             progress?this.$Progress.finish():'';
         },
         create(model) {
             this.$Progress.start()
-            this.form.post(`api/${model}`).then((response) => {
+            this.form.post(`api/${model}`).then(({data}) => {
                 this.$refs['createModal'].hide()
                 this.listLatest(model, false);
-                this.toastTitle = 'Item criado com sucesso';
-                this.toastVariant = 'success';
+                this.toastTitle = data.message;
+                this.toastVariant = data.variant;
                 this.toast();
 
             }).catch((error) => {
-                this.toastMessage = 'Reveja as informações no formulário';
-                this.toastTitle = 'Item não foi salvo';
+                this.toastMessage = this.translate('Review the information on the form.');
+                this.toastTitle = this.translate('Item not saved');
                 this.toastVariant = 'danger';
                 //console.warn('Not good man :(');       
 
@@ -34,13 +37,14 @@ export default {
             this.$Progress.finish()
         },
         delete(id, model) {
-            this.$bvModal.msgBoxConfirm('Não será possível desfazer esta ação!', {
-                title: "Deseja deletar  este item?",
+            let message = this.translate('It will not be possible to undo this action!')
+            this.$bvModal.msgBoxConfirm(message, {
+                title: this.translate("Do you want to delete this item?"),
                 size: 'sm',
                 buttonSize: 'md',
                 okVariant: 'danger',
-                okTitle: 'Deletar',
-                cancelTitle: 'Cancelar',
+                okTitle: this.translate('Delete'),
+                cancelTitle: this.translate('Cancel'),
                 footerClass: 'p-2',
                 hideHeaderClose: false,
                 centered: true
@@ -70,7 +74,7 @@ export default {
                 return parse_mail.test(email);
             }
         },
-        cal(){
+        calcu(){
             this.toast();
         }
     },

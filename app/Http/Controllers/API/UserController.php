@@ -24,7 +24,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(Request $request)
     {
@@ -43,7 +43,11 @@ class UserController extends Controller
 		    'photo' => $request['photo'],
 		    'password' => Hash::make($request['password'])
 	    ];
-	    return User::create($data);
+	    User::create($data);
+	    return [
+		    'message'=> __('User created with successfully.'),
+		    'variant' => 'success'
+	    ];
     }
 
     /**

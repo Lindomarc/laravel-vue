@@ -10,7 +10,6 @@ export default {
             progress?this.$Progress.start():'';
             axios.get(`api/${model}`).then(({data}) => {
                 this.items = data.data;
-                this.toastMessage = this.translate('The list has been updated');
             })
             progress?this.$Progress.finish():'';
         },
@@ -19,7 +18,8 @@ export default {
             this.form.post(`api/${model}`).then(({data}) => {
                 this.$refs['createModal'].hide()
                 this.listLatest(model, false);
-                this.toastTitle = data.message;
+                this.toastMessage = this.translate(data.message);
+                this.toastTitle = this.translate(data.variant.toUpperCase());
                 this.toastVariant = data.variant;
                 this.toast();
 
@@ -55,8 +55,10 @@ export default {
 
                         this.listLatest(model)
                         this.toastMessage = data.message;
-                        this.toastTitle = data.variant.toUpperCase();
+                        this.toastTitle = this.translate(data.variant.toUpperCase());
                         this.toastVariant = data.variant;
+                        this.toast();
+
                     })
                     .catch(err => {
                         console.warn(err)

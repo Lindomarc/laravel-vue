@@ -88,7 +88,7 @@
         </b-row>
         <template #modal-footer="{submit, cancel}">
           <b-button variant="primary" @click="create('user')">Salvar</b-button>
-          <b-button variant="danger">Cancelar</b-button>
+          <b-button variant="danger" @click="cancel()">Cancelar</b-button>
         </template>
       </b-modal>
     </form>
@@ -123,14 +123,9 @@ export default {
         }
         return 'Novo Usuário'
       },
-      items: [
-        {id: 40, name: 'Dickerson', last_name: 'Macdonald', email: 'lorem@ipsum.to'},
-        {id: 21, name: 'Larsen', last_name: 'Shaw', email: 'lorem@ipsum.to'},
-        {id: 89, name: 'Geneva', last_name: 'Wilson', email: 'lorem@ipsum.to'},
-        {id: 38, name: 'Jami', last_name: 'Carney', email: 'lorem@ipsum.to'}
-      ],
+      items: [],
       fields: [
-        {key: 'id', label: '#', sortable: true, sortDirection: 'desc'},        
+        {key: 'id', label: '#', sortable: true, sortDirection: 'desc'},
         {key: 'name', label: 'Nome', sortable: true, sortDirection: 'desc'},
         {key: 'email', label: 'E-mail', sortable: true, class: 'text-center'},
         {key: 'email_verified_at', label: 'Verificado', sortable: true, class: 'text-center'},
@@ -143,6 +138,11 @@ export default {
     VSelectize,
   },
   methods: {
+    loadUsers() {
+      axios.get("api/user").then(({data}) => {
+        this.items = data.data;
+      })
+    },
     clearForm() {
       this.form = new Form({
         name: '',
@@ -168,8 +168,9 @@ export default {
       }
     },
   },
-  mounted() {
-    //console.log('User Component mounted.')
+  created() {
+    this.loadUsers();
+    console.log('User Component created.')
   }
 }
 

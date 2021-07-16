@@ -68039,7 +68039,7 @@ readers do not read off random characters that represent icons */
 }
 
 .card-body {
-  padding: 0.25rem !important;
+  padding: 0 !important;
   min-height: 15rem !important;
 }
 

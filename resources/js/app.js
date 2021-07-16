@@ -10,7 +10,7 @@ import {BootstrapVue, IconsPlugin} from 'bootstrap-vue'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
- import Form from 'vform'
+import Form from 'vform'
 import {AlertError, HasError} from 'vform/src/components/bootstrap4'
 import 'selectize/dist/css/selectize.css'
 import VSelectize from '@isneezy/vue-selectize'
@@ -20,7 +20,7 @@ import VSelectize from '@isneezy/vue-selectize'
 import VueRouter from 'vue-router';
 import routes from './routes';
 
-window.Vue = require('vue').default;
+// window.Vue = require('vue').default;
 
 require('./bootstrap');
 

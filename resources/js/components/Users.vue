@@ -36,42 +36,7 @@
           </template>
 
         </b-table>
-
-
-        <!--<table class="table table-hover text-nowrap">-->
-        <!--  <thead>-->
-        <!--  <tr>-->
-        <!--    <th v-for="field in tableFields" :name="field">{{ field }}</th>-->
-        <!--  </tr>-->
-        <!--  </thead>-->
-        <!--  <tbody>-->
-        <!--  <tr>-->
-        <!--    <td>183</td>-->
-        <!--    <td>John Doe</td>-->
-        <!--    <td>John@host.com</td>-->
-        <!--    <td><span class="tag tag-success">x</span></td>-->
-        <!--    <td><span class="tag tag-success">x</span></td>-->
-        <!--    <td class="d-flex justify-content-end">-->
-        <!--      <b-button-group size="sm">-->
-        <!--        <b-dropdown right text="" >-->
-        <!--          <b-dropdown-item class="btn btn-success dropdown-item">-->
-        <!--            <i class=" fa fa-eye"></i> Perfil-->
-        <!--          </b-dropdown-item>-->
-        <!--          <b-dropdown-item class="btn btn-success dropdown-item">-->
-        <!--            <i class=" fa fa-edit"></i> Editar-->
-        <!--          </b-dropdown-item>-->
-        <!--          <b-dropdown-item class="btn btn-danger dropdown-item">-->
-        <!--            <i class="fa fa-times"></i> Desativar-->
-        <!--          </b-dropdown-item>-->
-        <!--          <b-dropdown-item class="btn btn-danger dropdown-item">-->
-        <!--            <i class="fa fa-trash"></i> Deletar-->
-        <!--          </b-dropdown-item>-->
-        <!--        </b-dropdown>-->
-        <!--      </b-button-group>-->
-        <!--    </td>-->
-        <!--  </tr>-->
-        <!--  </tbody>-->
-        <!--</table>-->
+        
         <template #footer>
           <em></em>
         </template>
@@ -90,7 +55,8 @@
         </b-form-group>
 
         <b-form-group label="E-mail:" label-for="email">
-          <b-form-input v-model="form.email" :state="validateEmail()"  type="email" name="email" id="email"></b-form-input>
+          <b-form-input v-model="form.email" :state="validateEmail()" type="email" name="email" 
+              id="email"></b-form-input>
           <has-error :form="form" field="email"></has-error>
         </b-form-group>
 
@@ -102,14 +68,19 @@
         <b-row>
           <b-col>
             <b-form-group id="group-password" label="Senha:" label-for="password">
-              <b-form-input type="password" v-model="form.password" :state="validatePassword()" id="password"></b-form-input>
+              <b-form-input type="password" v-model="form.password" :state="validatePassword()" 
+                  id="password"></b-form-input>
               <has-error :form="form" field="password"></has-error>
             </b-form-group>
           </b-col>
 
           <b-col>
-            <b-form-group id="group-password-confirmation" label="Confirmação de Senha:" label-for="password-confirmation">
-              <b-form-input type="password" v-model="form.password_confirmation" :state="validatePasswordConfirm()" id="password-confirmation"></b-form-input>
+            <b-form-group id="group-password-confirmation" label="Confirmação de Senha:" 
+                label-for="password-confirmation">
+              <b-form-input
+                  type="password"
+                  v-model="form.password_confirmation" 
+                  :state="validatePasswordConfirm()" id="password-confirmation"></b-form-input>
               <has-error :form="form" field="password_confirmation"></has-error>
             </b-form-group>
           </b-col>
@@ -117,7 +88,7 @@
         </b-row>
         <template #modal-footer="{submit, cancel}">
           <b-button variant="primary" @click="create('user')">Salvar</b-button>
-          <b-button variant="danger" @click="cancel()">Cancelar</b-button>
+          <b-button variant="danger">Cancelar</b-button>
         </template>
       </b-modal>
     </form>
@@ -128,13 +99,10 @@
 import submits from "../submits";
 import 'selectize/dist/css/selectize.css';
 import VSelectize from '@isneezy/vue-selectize';
-
-
-import { required, minLength, email } from 'vuelidate/lib/validators'
 import {validationMixin} from "vuelidate";
 
 export default {
-  mixins: [submits,validationMixin],
+  mixins: [submits, validationMixin],
   data() {
     return {
       types: [
@@ -163,7 +131,7 @@ export default {
       ],
       fields: [
         {key: 'id', label: '#', sortable: true, sortDirection: 'desc'},        
-        {key: 'name', label: 'Nome', sortable: true, sortDirection: 'desc'},        
+        {key: 'name', label: 'Nome', sortable: true, sortDirection: 'desc'},
         {key: 'email', label: 'E-mail', sortable: true, class: 'text-center'},
         {key: 'email_verified_at', label: 'Verificado', sortable: true, class: 'text-center'},
         {key: 'status', label: 'Status', sortable: true, class: 'text-center'},
@@ -174,8 +142,8 @@ export default {
   components: {
     VSelectize,
   },
-  methods:{
-    clearForm(){
+  methods: {
+    clearForm() {
       this.form = new Form({
         name: '',
         email: '',
@@ -185,8 +153,8 @@ export default {
       })
     },
     validatePassword() {
-      if (this.form.password){
-        return (this.form.password.length >= 8);  
+      if (this.form.password) {
+        return (this.form.password.length >= 8);
       }
     },
     validatePasswordConfirm() {
@@ -199,11 +167,8 @@ export default {
         return (this.form.name.length >= 3);
       }
     },
-
-
   },
   mounted() {
-
     //console.log('User Component mounted.')
   }
 }

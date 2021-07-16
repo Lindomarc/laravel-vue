@@ -1,18 +1,19 @@
  
 export default {
     methods: {
-        listLatest(model) {
-            this.$Progress.start()
+        listLatest(model, progress = true) {
+            progress?this.$Progress.start():'';
             axios.get(`api/${model}`).then(({data}) => {
                 this.items = data.data;
             })
-            this.$Progress.finish()
+            progress?this.$Progress.finish():'';
         },
         create(model) {
             this.$Progress.start()
             this.form.post(`api/${model}`).then((response) => {
                 // console.log('Everything is awesome.');
                 this.$refs['createModal'].hide()
+                this.listLatest(model,false);
             }).catch((error) => {
                 //console.warn('Not good man :(');
             });

@@ -33,11 +33,45 @@ export default {
 
             this.$Progress.finish()
         },
+        delete(id, model) {
+            this.$bvModal.msgBoxConfirm('Não será possível desfazer esta ação!', {
+                title: "Deseja deletar  este item?",
+                size: 'sm',
+                buttonSize: 'md',
+                okVariant: 'danger',
+                okTitle: 'Deletar',
+                cancelTitle: 'Cancelar',
+                footerClass: 'p-2',
+                hideHeaderClose: false,
+                centered: true
+            })
+            .then(value => {
+                if (value){
+                    this.form.delete(`api/${model}/${id}`).then(({data}) => {
+
+                        this.listLatest(model)
+                        this.toastMessage = data.message;
+                        this.toastTitle = data.variant.toUpperCase();
+                        this.toastVariant = data.variant;
+                    })
+                    .catch(err => {
+                        console.warn(err)
+                    })
+                }
+
+            })
+            .catch(err => {
+                console.warn(err)
+            })
+        },
         validateEmail(email) {
             if (email){
                 let parse_mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return parse_mail.test(email);
             }
+        },
+        cal(){
+            this.toast();
         }
     },
 

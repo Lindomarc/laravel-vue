@@ -27,8 +27,8 @@
                     <i class="fa fa-times"></i> Desativar
                   </b-dropdown-item>
                   <b-dropdown-divider></b-dropdown-divider>
-                  <b-dropdown-item class="btn btn-sm btn-danger dropdown-item">
-                    <i class="fa fa-trash"></i> Deletar
+                  <b-dropdown-item class="btn btn-sm btn-danger dropdown-item" @click="info(row.item, 'delete')">
+                      <i class="fa fa-trash"></i> Deletar                    
                   </b-dropdown-item>
                 </b-dropdown>
               </b-button-group>
@@ -131,13 +131,23 @@ export default {
         {key: 'email_verified_at', label: 'Verificado', sortable: true, class: 'text-center'},
         {key: 'status', label: 'Status', sortable: true, class: 'text-center'},
         {key: 'actions', label: 'Actions'}
-      ],
+      ],    
+      infoModal: {
+        id: 'info-modal',
+        title: '',
+        content: ''
+      }
     }
   },
   components: {
     VSelectize,
   },
   methods: {
+    info(item, action) {
+     if(action === 'delete'){
+       this.delete(item.id, 'user')
+     }
+    },
     clearForm() {
       this.form = new Form({
         name: '',

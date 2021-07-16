@@ -163,7 +163,7 @@ export default {
       }
     },
   },
-  created() {
+  created(){
     this.listLatest('user');
   }
 }

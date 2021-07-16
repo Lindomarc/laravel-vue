@@ -5,7 +5,7 @@
         <template #header>
           <div class="card-tools d-flex">
             <div class="group input-group-md">
-              <b-button v-b-modal.addUser type="button" class="btn btn-success white" @click="clearForm()">
+              <b-button v-b-modal.createModal type="button" class="btn btn-success white" @click="clearForm()">
                 <i class="fas fa-plus fa-fw"></i> Adicionar
               </b-button>
             </div>
@@ -46,7 +46,7 @@
     <!-- Modal -->
     <form @submit.prevent="create('user')">
       
-      <b-modal :title="this.formTitle()" id="addUser">
+      <b-modal :title="this.formTitle()" ref="createModal"  id="createModal">
 
         <b-form-group id="group-name" label="Nome:" label-for="name">
           <b-form-input v-model="form.name" 

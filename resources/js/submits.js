@@ -12,6 +12,7 @@ export default {
             this.$Progress.start()
             this.form.post(`api/${model}`).then((response) => {
                 // console.log('Everything is awesome.');
+                this.$refs['createModal'].hide()
             }).catch((error) => {
                 //console.warn('Not good man :(');
             });

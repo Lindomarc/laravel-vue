@@ -13,9 +13,9 @@
 	| is assigned the "api" middleware group. Enjoy building your API!
 	|
 	*/
-	Route::post('login', [App\Http\Controllers\API\UserController::class, 'login']);
-	Route::post('logout', [App\Http\Controllers\API\UserController::class, 'logout']);
-	
+//	Route::post('login', [App\Http\Controllers\API\UserController::class, 'login']);
+//	Route::post('logout', [App\Http\Controllers\API\UserController::class, 'logout']);
+//	
 //	Route::middleware('auth:api')->get('/user', function (Request $request) {
 //		return $request->user();
 //	});

@@ -108,30 +108,4 @@ class UserController extends Controller
 			'variant' => 'success'
 		];
 	}
-	
-	/**
-	 * @throws ValidationException
-	 */
-	public function login(Request $request)
-	{
-		$request->validate([
-			'email' => 'required|email',
-			'password' => 'required',
-		]);
-		$user = User::where('email', $request->email)->first();
-		
-		if (!$user || !Hash::check($request->password, $user->password)) {
-			throw ValidationException::withMessages([
-				'email' => ['The provided credentials are incorrect.'],
-			]);
-		}
-		
-		$token = $user->createToken($request->email)->plainTextToken;
-		
-		$response = [
-			'user' => $user,
-			'token' => $token
-		];
-		return response($response, 201);
-	}
 }

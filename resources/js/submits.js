@@ -13,9 +13,16 @@ export default {
             })
             progress?this.$Progress.finish():'';
         },
-        create(model) {
+        create(model,item = {}) {
             this.$Progress.start()
-            this.form.post(`api/${model}`).then(({data}) => {
+            let url = `api/${model}`;
+            let method = 'post';
+            if (this.isEdit){
+                method = 'put';
+                url = `api/${model}/${this.form.id}`;    
+            }
+            console.log(url)
+            this.form[method](url).then(({data}) => {
                 this.$refs['createModal'].hide()
                 this.listLatest(model, false);
                 this.toastMessage = this.translate(data.message);
@@ -40,7 +47,7 @@ export default {
             let message = this.translate('It will not be possible to undo this action!')
             this.$bvModal.msgBoxConfirm(message, {
                 title: this.translate("Do you want to delete this item?"),
-                size: 'sm',
+                size: 'md',
                 buttonSize: 'md',
                 okVariant: 'danger',
                 okTitle: this.translate('Delete'),
@@ -75,9 +82,6 @@ export default {
                 let parse_mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return parse_mail.test(email);
             }
-        },
-        calcu(){
-            this.toast();
         }
     },
 

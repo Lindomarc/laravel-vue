@@ -66,11 +66,23 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(User $user, Request $request)
     {
-        //
+	    $request->validate([
+		    'name'=> 'required|min:3',
+		    'email' => 'email:rfc,dns|unique:users,email,'.$user['id'],
+		    'type'=>'required'
+	    ]);
+	    
+    	$user->fill($request->all());
+	    $user->save();
+	
+	    return [
+		    'message'=> __('User edited with successfully.'),
+		    'variant' => 'success'
+	    ];
     }
 
     /**

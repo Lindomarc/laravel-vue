@@ -20,7 +20,7 @@
                   <b-dropdown-item class="btn btn-sm btn-success dropdown-item">
                     <i class=" fa fa-eye"></i> Perfil
                   </b-dropdown-item>
-                  <b-dropdown-item class="btn btn-sm btn-success dropdown-item">
+                  <b-dropdown-item class="btn btn-sm btn-success dropdown-item" @click="info(row.item, 'edit')">
                     <i class=" fa fa-edit"></i> Editar
                   </b-dropdown-item>
                   <b-dropdown-item class="btn btn-sm btn-danger dropdown-item">
@@ -44,7 +44,7 @@
     </b-card-group>
 
     <!-- Modal -->
-    <form @submit.prevent="create('user')">
+    <form>
       
       <b-modal :title="this.formTitle()" ref="createModal"  id="createModal">
 
@@ -65,7 +65,7 @@
           <has-error :form="form" field="type"></has-error>
         </b-form-group>
 
-        <b-row>
+        <b-row v-if="!isEdit">
           <b-col>
             <b-form-group id="group-password" label="Senha:" label-for="password">
               <b-form-input type="password" v-model="form.password" :state="validatePassword()" 
@@ -105,11 +105,13 @@ export default {
   mixins: [submits, validationMixin],
   data() {
     return {
+      Model:'user',
       types: [
         'admin',
         'user'
       ],
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -119,9 +121,9 @@ export default {
       isEdit: false,
       formTitle: () => {
         if (this.isEdit) {
-          return 'Editando Usuário'
+          return this.translate('Editing user')
         }
-        return 'Novo Usuário'
+        return this.translate('Register new user')
       },
       items: [],
       fields: [
@@ -143,19 +145,31 @@ export default {
     VSelectize,
   },
   methods: {
+    translate(key) {
+      return key;
+    },
     info(item, action) {
-     if(action === 'delete'){
-       this.delete(item.id, 'user')
-     }
+      
+      if (action === 'delete') {
+        this.delete(item.id, this.Model)
+      }
+      if (action === 'edit') {
+        this.editForm(item, this.Model)
+      }
+      
     },
     clearForm() {
-      this.form = new Form({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        type: ''
-      })
+      this.isEdit = false;
+      this.form.reset();
+      this.form.clear();
+    },
+    editForm(item) {
+      this.form.reset();
+      this.form.clear();
+
+      this.isEdit = true;
+      this.form.fill(item);
+      this.$refs['createModal'].show();
     },
     validatePassword() {
       if (this.form.password) {
@@ -174,7 +188,7 @@ export default {
     },
   },
   created(){
-    this.listLatest('user');
+    this.listLatest(this.Model);
   }
 }
 

@@ -73,7 +73,8 @@ class UserController extends Controller
 	    $request->validate([
 		    'name'=> 'required|min:3',
 		    'email' => 'email:rfc,dns|unique:users,email,'.$user['id'],
-		    'type'=>'required'
+		    'type'=>'required',
+		    'password' => 'sometimes|required|min:8|confirmed'
 	    ]);
 	    
     	$user->fill($request->all());

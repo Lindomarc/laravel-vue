@@ -21,7 +21,6 @@ export default {
                 method = 'put';
                 url = `api/${model}/${this.form.id}`;    
             }
-            console.log(url)
             this.form[method](url).then(({data}) => {
                 this.$refs['createModal'].hide()
                 this.listLatest(model, false);

@@ -65,7 +65,7 @@
           <has-error :form="form" field="type"></has-error>
         </b-form-group>
 
-        <b-row v-if="!isEdit">
+        <b-row>
           <b-col>
             <b-form-group id="group-password" label="Senha:" label-for="password">
               <b-form-input type="password" v-model="form.password" :state="validatePassword()" 

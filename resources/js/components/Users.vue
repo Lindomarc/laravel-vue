@@ -12,19 +12,12 @@
           </div>
         </template>
         <b-table striped hover :items="items" :fields="fields" responsive="sm">
-
           <template #cell(actions)="row">
             <div class="d-flex justify-content-end">
               <b-button-group>
                 <b-dropdown right text="" size="sm">
-                  <b-dropdown-item class="btn btn-sm btn-success dropdown-item">
-                    <i class=" fa fa-eye"></i> Perfil
-                  </b-dropdown-item>
                   <b-dropdown-item class="btn btn-sm btn-success dropdown-item" @click="info(row.item, 'edit')">
                     <i class=" fa fa-edit"></i> Editar
-                  </b-dropdown-item>
-                  <b-dropdown-item class="btn btn-sm btn-danger dropdown-item">
-                    <i class="fa fa-times"></i> Desativar
                   </b-dropdown-item>
                   <b-dropdown-divider></b-dropdown-divider>
                   <b-dropdown-item class="btn btn-sm btn-danger dropdown-item" @click="info(row.item, 'delete')">
@@ -154,9 +147,8 @@ export default {
         this.delete(item.id, this.Model)
       }
       if (action === 'edit') {
-        this.editForm(item, this.Model)
-      }
-      
+        this.editForm(item)
+      }      
     },
     clearForm() {
       this.isEdit = false;

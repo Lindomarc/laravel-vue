@@ -50,25 +50,30 @@
 
         <b-form-group id="group-name" label="Nome:" label-for="name">
           <b-form-input v-model="form.name" 
-               :state="validationName('name')" id="name" aria-describedby="name-live-feedback"></b-form-input>
+               :state="validation('name')" @keydown="clearError('name')" id="name" 
+              aria-describedby="name-live-feedback"></b-form-input>
           <has-error :form="form" field="name"></has-error>
         </b-form-group>
 
         <b-form-group label="E-mail:" label-for="email">
-          <b-form-input v-model="form.email" :state="validateEmail(form.email)" type="email" name="email" 
+          <b-form-input v-model="form.email" :state="validation('email')" @keydown="clearError('email')" 
+              type="email" name="email" 
               id="email"></b-form-input>
           <has-error :form="form" field="email"></has-error>
         </b-form-group>
 
         <b-form-group label="Grupo" label-for="type">
-          <v-selectize v-model="form.type" :options="types" id="type"></v-selectize>
+          <v-selectize v-model="form.type" :options="types" id="type"
+              :state="validation('type')"
+              @keydown="clearError('type')"></v-selectize>
           <has-error :form="form" field="type"></has-error>
         </b-form-group>
 
         <b-row>
           <b-col>
             <b-form-group id="group-password" label="Senha:" label-for="password">
-              <b-form-input type="password" v-model="form.password" :state="validatePassword()" 
+              <b-form-input type="password" v-model="form.password" :state="validation('password')"
+                  @keydown="clearError('password')"
                   id="password"></b-form-input>
               <has-error :form="form" field="password"></has-error>
             </b-form-group>
@@ -80,7 +85,8 @@
               <b-form-input
                   type="password"
                   v-model="form.password_confirmation" 
-                  :state="validatePasswordConfirm()" id="password-confirmation"></b-form-input>
+                  :state="validation('password')"
+                  id="password-confirmation"></b-form-input>
               <has-error :form="form" field="password_confirmation"></has-error>
             </b-form-group>
           </b-col>
@@ -118,6 +124,7 @@ export default {
         password_confirmation: '',
         type: ''
       }),
+      errors:{},
       isEdit: false,
       formTitle: () => {
         if (this.isEdit) {
@@ -181,11 +188,16 @@ export default {
         return (this.form.password === this.form.password_confirmation);
       }
     },
-    validationName() {
-      if (this.form.name) {
-        return (this.form.name.length >= 3);
-      }
-    },
+    validation(field) {
+        if (this.form.errors.has(field)){
+           return !this.form.errors.has(field);
+        }
+     },
+    clearError(field) {
+      this.form.errors.clear(field)
+    }
+  },
+  computed:{
   },
   created(){
     this.listLatest(this.Model);

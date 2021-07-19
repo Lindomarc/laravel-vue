@@ -1,7 +1,9 @@
 import toast from "./toast";
+import axios from "axios";
 
 export default {
     mixins: [toast],
+    
     methods: {
         translate(key){
             return key;
@@ -13,34 +15,41 @@ export default {
             })
             progress?this.$Progress.finish():'';
         },
-        create(model,item = {}) {
+        create(model, item = {}) {
             this.$Progress.start()
             let url = `api/${model}`;
             let method = 'post';
-            if (this.isEdit){
+            if (this.isEdit) {
                 method = 'put';
-                url = `api/${model}/${this.form.id}`;    
+                url = `api/${model}/${this.form.id}`;
             }
-            this.form[method](url).then(({data}) => {
+            let response;
+            try{
+                 response = this.form[method](url)    
+            } catch (e) {
+                console.log(e)
+
+            }
+             
+            response.then(({data}) => {
+
                 this.$refs['createModal'].hide()
                 this.listLatest(model, false);
                 this.toastMessage = this.translate(data.message);
                 this.toastTitle = this.translate(data.variant.toUpperCase());
-                this.toastVariant = data.variant;
+                this.toastVariant = data.variant??'success';
                 this.toast();
+                this.$Progress.finish()
 
-            }).catch((error) => {
-                this.toastMessage = this.translate('Review the information on the form.');
-                this.toastTitle = this.translate('Item not saved');
-                this.toastVariant = 'danger';
-                //console.warn('Not good man :(');       
-
+            }).catch(({response}) => {
+                this.toastMessage = this.translate(response.data.message);
+                this.toastTitle = this.translate('Warning');
+                this.toastVariant = 'warning';
                 this.toast();
                 this.$Progress.fail();
 
             });
 
-            this.$Progress.finish()
         },
         delete(id, model) {
             let message = this.translate('It will not be possible to undo this action!')

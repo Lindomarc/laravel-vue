@@ -19,8 +19,7 @@ import VueProgressBar from 'vue-progressbar'
 /**
  * Routes imports and assigning
  */
-import VueRouter from 'vue-router';
-import routes from './routes';
+import router from './routes/index.js';
 
 // window.Vue = require('vue').default;
 
@@ -48,12 +47,7 @@ Vue.use(VueProgressBar, {
     failedColor: 'red'
 })
 
-Vue.use(VueRouter);
 
-const router = new VueRouter({
-    mode: "history",
-    routes
-});
 // Routes End
 
 /**
@@ -77,7 +71,7 @@ Vue.component('input-form', require('./components/FormInputComponent.vue').defau
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+new Vue({
     el: '#app',
     router
 });

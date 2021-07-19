@@ -62,8 +62,6 @@ Vue.use(VueProgressBar, {
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('modal-form', require('./components/ModalFormComponent.vue').default);
-Vue.component('input-form', require('./components/FormInputComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

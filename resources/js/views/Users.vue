@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card-group deck>
-      <b-card header-tag="header" footer-tag="footer">
+      <b-card header-tag="header" style="height: 100%" footer-tag="footer">
         <template #header>
           <div class="card-tools d-flex">
             <div class="group input-group-md">
@@ -11,7 +11,7 @@
             </div>
           </div>
         </template>
-        <b-table striped hover :items="items" :fields="fields" responsive="sm">
+        <b-table striped hover :items="items.data" :fields="fields" responsive="sm" :current-page="currentPage">
 
           <template #cell(actions)="row">
             <div class="d-flex justify-content-end">
@@ -38,7 +38,21 @@
         </b-table>
         
         <template #footer>
-          <em></em>
+          <!--<pagination :data="items" -->
+          <!--    align="right"-->
+          <!--    @pagination-change-page="getResults"></pagination>-->
+
+          <b-pagination
+              v-model="currentPage"
+              :total-rows="rows"
+              :per-page="perPage"
+              first-text="⏮"
+              prev-text="⏪"
+              next-text="⏩"
+              last-text="⏭"
+              class="mt-4"
+              align="right"
+              @change="getResults"></b-pagination>
         </template>
       </b-card>
     </b-card-group>
@@ -106,11 +120,17 @@ import submits from "../submits";
 import 'selectize/dist/css/selectize.css';
 import VSelectize from '@isneezy/vue-selectize';
 import {validationMixin} from "vuelidate";
-
 export default {
+  components: {
+    VSelectize,
+  },
   mixins: [submits, validationMixin],
   data() {
     return {
+      links:{},
+      rows:1,
+      perPage: 3,
+      currentPage: 1,
       Model:'user',
       types: [
         'admin',
@@ -132,7 +152,7 @@ export default {
         }
         return this.translate('Register new user')
       },
-      items: [],
+      items: {},
       fields: [
         {key: 'id', label: '#', sortable: true, sortDirection: 'desc'},
         {key: 'name', label: 'Nome', sortable: true, sortDirection: 'desc'},
@@ -147,9 +167,6 @@ export default {
         content: ''
       }
     }
-  },
-  components: {
-    VSelectize,
   },
   methods: {
     translate(key) {
@@ -173,7 +190,6 @@ export default {
     editForm(item) {
       this.form.reset();
       this.form.clear();
-
       this.isEdit = true;
       this.form.fill(item);
       this.$refs['createModal'].show();
@@ -195,13 +211,35 @@ export default {
      },
     clearError(field) {
       this.form.errors.clear(field)
-    }
+    },
+    getResults(page = 1) {
+      this.$Progress.start();
+      let response = axios.get(`api/${this.Model}`,{
+        params: {
+          page:page
+        }
+      })
+      return response.then(({ data }) => {
+         this.rows = data.total;
+        this.items = data;
+        this.$Progress.finish();
+        return this.items
+
+      });
+
+    },
+
   },
   computed:{
+    onlyLog:()=>{console.log('computed')}
   },
-  created(){
-    this.listLatest(this.Model);
-  }
+  beforeMount(){
+    console.log('beforeMount')
+  },
+  mounted(){
+    console.log('mounted')
+    this.getResults();
+  },
 }
 
 </script>

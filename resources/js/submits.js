@@ -8,12 +8,8 @@ export default {
         translate(key){
             return key;
         },
-        listLatest(model, progress = true) {
-            progress?this.$Progress.start():'';
-            axios.get(`api/${model}`).then(({data}) => {
-                this.items = data.data;
-            })
-            progress?this.$Progress.finish():'';
+        loadItems() {
+            this.getResults(this.currentPage);
         },
         create(model, item = {}) {
             this.$Progress.start()
@@ -34,7 +30,7 @@ export default {
             response.then(({data}) => {
 
                 this.$refs['createModal'].hide()
-                this.listLatest(model, false);
+                this.loadItems();
                 this.toastMessage = this.translate(data.message);
                 this.toastTitle = this.translate(data.variant.toUpperCase());
                 this.toastVariant = data.variant??'success';
@@ -68,7 +64,7 @@ export default {
                 if (value){
                     this.form.delete(`api/${model}/${id}`).then(({data}) => {
 
-                        this.listLatest(model)
+                        this.loadItems()
                         this.toastMessage = data.message;
                         this.toastTitle = this.translate(data.variant.toUpperCase());
                         this.toastVariant = data.variant;

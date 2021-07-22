@@ -8,6 +8,7 @@ const routes =  [
     { path: '/profile', component: require('../views/Profile.vue').default },
     // { path: '/developer', component: require('../views/Developer.vue').default },
     { path: '/users', component: require('../views/Users.vue').default },
+    { path: '/mdfes', component: require('../views/Mdfes.vue').default },
     // { path: '/products', component: require('../views/product/Products.vue').default },
     // { path: '/product/tag', component: require('../views/product/Tag.vue').default },
     // { path: '/product/category', component: require('../views/product/Category.vue').default },

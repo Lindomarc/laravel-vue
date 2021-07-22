@@ -22,6 +22,7 @@
 	
 	Route::group(['middleware' => ['auth:sanctum']], function () {
 		Route::apiResources([
-			'user' => App\Http\Controllers\API\UserController::class
-		]);
+			'user' => App\Http\Controllers\API\UserController::class,
+			'mdfe' => App\Http\Controllers\API\MdfesController::class
+		]);		
 	});

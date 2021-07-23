@@ -1,29 +1,61 @@
 import toast from "./toast";
 import axios from "axios";
-
 export default {
     mixins: [toast],
-    
     methods: {
+        
+        getHost(){
+            let protocol = location.protocol;
+            let slashes = protocol.concat("//");             
+            return slashes.concat(window.location.host);
+        },
+        
         translate(key){
             return key;
         },
+        
         loadItems() {
             this.getResults(this.currentPage);
         },
+        
+        loadValuesForm(){
+            let app_url = this.getHost();
+
+            this.$Progress.start()
+
+            let url = `${app_url}/api/${this.Model}/form`;
+            
+            let response;
+            
+            response = this.form.get(url);    
+
+            response.then(({data}) => {
+                this.valuesForm = data['infos'];
+                console.log(this.valuesForm.ufs)
+
+                this.$Progress.finish();
+            }).catch(({response}) => {
+                this.$Progress.fail();
+            });
+            
+
+        },
+        
         create(model, item = {}) {
             this.$Progress.start()
-            let url = `api/${model}`;
+            let app_url = this.getHost();
+
+            let url = `${app_url}/api/${model}`;
             let method = 'post';
             if (this.isEdit) {
                 method = 'put';
-                url = `api/${model}/${this.form.id}`;
+                url = `${app_url}/api/${model}/${this.form.id}`;
             }
             let response;
             try{
                  response = this.form[method](url)    
             } catch (e) {
-                console.log(e)
+                // console.log(e)
 
             }
              
@@ -47,6 +79,7 @@ export default {
             });
 
         },
+        
         delete(id, model) {
             let message = this.translate('It will not be possible to undo this action!')
             this.$bvModal.msgBoxConfirm(message, {
@@ -81,12 +114,66 @@ export default {
                 console.warn(err)
             })
         },
+        
         validateEmail(email) {
             if (email){
                 let parse_mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return parse_mail.test(email);
             }
-        }
+        },
+        
+        info(item, action) {
+
+            if (action === 'delete') {
+                this.delete(item.id, this.Model)
+            }
+            if (action === 'edit') {
+                this.editForm(item, this.Model)
+            }
+
+        },
+        
+        clearForm() {
+            this.isEdit = false;
+            this.form.reset();
+            this.form.clear();
+        },
+        
+        editForm(item) {
+            this.form.reset();
+            this.form.clear();
+            this.isEdit = true;
+            this.form.fill(item);
+            this.$refs['createModal'].show();
+        },
+        
+        validation(field) {
+            if (this.form.errors.has(field)){
+                return !this.form.errors.has(field);
+            }
+        },
+        
+        clearError(field) {
+            this.form.errors.clear(field)
+        },
+        
+        getResults(page = 1) {
+            this.$Progress.start();
+            let response = axios.get(`api/${this.Model}`,{
+                params: {
+                    page:page
+                }
+            })
+            return response.then(({ data }) => {
+                this.rows = data.total;
+                this.items = data;
+                this.$Progress.finish();
+                return this.items
+
+            });
+
+        },
+        
     },
 
 }

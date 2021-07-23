@@ -9,6 +9,8 @@ const routes =  [
     // { path: '/developer', component: require('../views/Developer.vue').default },
     { path: '/users', component: require('../views/Users.vue').default },
     { path: '/mdfes', component: require('../views/Mdfes.vue').default },
+    { path: '/veiculos', component: require('../views/Vehicles.vue').default },
+    { path: '/veiculos', component: require('../views/Vehicles.vue').default },
     // { path: '/products', component: require('../views/product/Products.vue').default },
     // { path: '/product/tag', component: require('../views/product/Tag.vue').default },
     // { path: '/product/category', component: require('../views/product/Category.vue').default },

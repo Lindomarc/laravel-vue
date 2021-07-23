@@ -70,7 +70,8 @@
         </b-form-group>
 
         <b-form-group label="E-mail:" label-for="email">
-          <b-form-input v-model="form.email" :state="validation('email')" @keydown="clearError('email')" 
+          <b-form-input v-model="form.email" 
+              :state="validation('email')" @keydown="clearError('email')" 
               type="email" name="email" 
               id="email"></b-form-input>
           <has-error :form="form" field="email"></has-error>

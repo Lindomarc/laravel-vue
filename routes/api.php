@@ -1,6 +1,5 @@
 <?php
 	
-	use Illuminate\Http\Request;
 	use Illuminate\Support\Facades\Route;
 	
 	/*
@@ -20,9 +19,15 @@
 //		return $request->user();
 //	});
 	
-	Route::group(['middleware' => ['auth:sanctum']], function () {
+//	Route::group(['middleware' => ['auth:sanctum']], function () {
+		
+		Route::get('/vehicle/form', [App\Http\Controllers\API\VehicleController::class, 'form'])
+			->name('vehicle.form');
+		
 		Route::apiResources([
 			'user' => App\Http\Controllers\API\UserController::class,
-			'mdfe' => App\Http\Controllers\API\MdfesController::class
-		]);		
-	});
+			'mdfe' => App\Http\Controllers\API\MdfeController::class,
+			'vehicle' => App\Http\Controllers\API\VehicleController::class
+		]);
+		
+//	});

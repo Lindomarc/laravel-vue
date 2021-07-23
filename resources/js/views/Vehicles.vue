@@ -143,42 +143,42 @@
           <!--  input Capacidade -->
           <l-form-input
               field="capacidade"
-              label="Capacidade"
+              label="Capacidade:"
               :form="form"
               md="6">
           </l-form-input>
           <!--  input Nome Proprietário -->
             <l-form-input 
-                field="nome_proprietario" 
-                label="Nome Proprietário" 
+                field="proprietario_nome" 
+                label="Nome Proprietário:" 
                 :form="form"
                 md="12">
             </l-form-input>
           <!--  input CPF/CNPJ Proprietário -->
             <l-form-input 
                 field="proprietario_documento" 
-                label="CPF/CNPJ Proprietário" 
+                label="CPF/CNPJ Proprietário:" 
                 :form="form" 
                 md="6"></l-form-input>
           <!--  I.E/RG Proprietário -->
             <l-form-input 
                 field="proprietario_ie" 
-                label="I.E/RG Proprietário" 
+                label="I.E/RG Proprietário:" 
                 :form="form" 
                 md="6">
             </l-form-input>
           <!--  select UF Proprietário -->
             <l-form-select
-                label="UF Proprietário"
-                field="uf_proprietario"
+                label="UF Proprietário:"
+                field="proprietario_uf"
                 :form="form"
                 :options="valuesForm['ufs']"
                 md="3"
             ></l-form-select>
           <!--  select tipo do Proprietário-->
             <l-form-select
-                label="Tipo do Proprietário"
-                field="tipo_proprietario"
+                label="Tipo do Proprietário:"
+                field="proprietario_tp"
                 :form="form"
                 :options="valuesForm['tiposProprietario']"
                 md="4"

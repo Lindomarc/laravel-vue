@@ -5,13 +5,14 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class VehicleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -45,19 +46,37 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
-        //
+
+    	
+	    $request->validate([
+		    'placa' => 'required|max:8',
+		    'cor' => 'required|max:10',
+		    'marca' => 'required|max:20',
+		    'modelo' => 'required|max:20',
+		    'tara' => 'required|max:10',
+		    'rntrc' => 'required|min:8',
+		    'capacidade' => 'required|max:10',
+		    'proprietario_nome' => 'required|max:40',
+		    'proprietario_uf' => 'required|max:40',
+		    'proprietario_ie' => 'required|max:13',
+		    'proprietario_documento' => 'required|max:20',
+	    ]);
+    	$response = [
+    		'message' => 'ok'
+	    ];
+        return response($response);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Vehicle $vehicle)
     {
@@ -67,9 +86,9 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \App\Models\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Vehicle $vehicle)
     {
@@ -80,7 +99,7 @@ class VehicleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Vehicle  $vehicle
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Vehicle $vehicle)
     {

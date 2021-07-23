@@ -1,8 +1,12 @@
 <template>
   <b-col :md="md">
     <b-form-group :label="label" :label-for="field">
-      <v-selectize v-model="form[field]" :options="options" id="field" :state="validation(field)" @keydown="clearError(field)"></v-selectize>
-      <has-error :form="form" :field="field"></has-error>
+      <v-selectize v-model="form[field]" :options="options" 
+          :id="field"
+          :class="this.class"
+          @submit="isValid()"
+          @keydown="clearError(field)"></v-selectize>
+      <has-error :form="form" :field="field" ></has-error>
     </b-form-group>
   </b-col>
 </template>
@@ -17,6 +21,17 @@ export default {
     VSelectize,
   },
   mixins: [submits],
-  props: ['field', 'label','options', 'form', 'md']
+  props: ['field', 'label','options', 'form', 'md'],
+  data(){
+    return {
+      class:''
+    }
+  },
+  methods:{
+    isValid(){
+      
+       this.class = this.validation(this.field)?'custom-select is-invalid':'';
+    }
+  }
 }
 </script>

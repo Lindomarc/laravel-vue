@@ -68046,3 +68046,8 @@ readers do not read off random characters that represent icons */
 .modal-footer {
   justify-content: space-between !important;
 }
+
+.invalid-feedback {
+  font-weight: 700;
+  background: #ff09090d;
+}

@@ -31,8 +31,6 @@ export default {
 
             response.then(({data}) => {
                 this.valuesForm = data['infos'];
-                console.log(this.valuesForm.ufs)
-
                 this.$Progress.finish();
             }).catch(({response}) => {
                 this.$Progress.fail();

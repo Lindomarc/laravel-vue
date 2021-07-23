@@ -52,10 +52,7 @@
         </b-table>
 
         <template #footer>
-          <!--<pagination :data="items" -->
-          <!--    align="right"-->
-          <!--    @pagination-change-page="getResults"></pagination>-->
-
+          
         </template>
       </b-card>
     </b-card-group>
@@ -66,120 +63,126 @@
       <b-modal :title="this.formTitle()" ref="createModal" id="createModal" size="lg">
         <b-form-row>
           <!-- Placa -->
-          <b-col md="5">
-            <b-form-group id="group-placa" label="Placa:" label-for="placa">
-              <b-form-input v-model="form.placa" :state="validation('placa')" @keydown="clearError('placa')" id="placa" aria-describedby="placa-live-feedback"></b-form-input>
-              <has-error :form="form" field="placa"></has-error>
-            </b-form-group>
-          </b-col>
-
+          <l-form-input
+              field="placa"
+              label="Placa:"
+              :form="form"
+              md="5">
+          </l-form-input>
           <!-- UF -->
-          <b-col md="2">
-            <b-form-group label="UF" label-for="uf">
-              <v-selectize v-model="form.uf" :options="valuesForm['ufs']" id="uf" :state="validation('uf')" @keydown="clearError('uf')"></v-selectize>
-              <has-error :form="form" field="uf"></has-error>
-            </b-form-group>
-          </b-col>
 
+          <l-form-select
+              label="UF:"
+              field="uf"
+              :form="form"
+              :options="valuesForm['ufs']"
+              md="3"
+          ></l-form-select>
           <!-- Cor -->
-          <b-col md="5">
-            <b-form-group id="group-cor" label="Cor:" label-for="cor">
-              <b-form-input v-model="form.cor" :state="validation('cor')" @keydown="clearError('cor')" id="cor" aria-describedby="cor-live-feedback"></b-form-input>
-              <has-error :form="form" field="cor"></has-error>
-            </b-form-group>
-          </b-col>
-
+          <l-form-input
+              field="cor"
+              label="Cor:"
+              :form="form"
+              md="4">
+          </l-form-input>
 
           <!-- Marca-->
-          <b-col md="6">
-            <b-form-group id="group-marca" label="Marca:" label-for="marca">
-              <b-form-input v-model="form.marca" :state="validation('marca')" @keydown="clearError('marca')" id="marca" aria-describedby="marca-live-feedback"></b-form-input>
-              <has-error :form="form" field="marca"></has-error>
-            </b-form-group>
-          </b-col>
-
+          <l-form-input
+              field="marca"
+              label="Marca:"
+              :form="form"
+              md="6">
+          </l-form-input>
           <!-- Modelo -->
-          <b-col md="6">
-            <b-form-group id="group-modelo" label="Modelo:" label-for="modelo">
-              <b-form-input v-model="form.modelo" :state="validation('modelo')" @keydown="clearError('modelo')" id="modelo" aria-describedby="modelo-live-feedback"></b-form-input>
-              <has-error :form="form" field="modelo"></has-error>
-            </b-form-group>
-          </b-col>
 
+          <l-form-input
+              field="modelo"
+              label="Modelo:"
+              :form="form"
+              md="6">
+          </l-form-input>
           <!--  Select Tipo-->
-          <b-col md="6">
-            <b-form-group label="Tipo:" label-for="tipo">
-              <v-selectize v-model="form.tipo" :options="valuesForm['tipos']" id="tipo" :state="validation('tipo')" @keydown="clearError('tipo')"></v-selectize>
-              <has-error :form="form" field="tipo"></has-error>
-            </b-form-group>
-          </b-col>
-          <!--  input RNTRC-->
-          <b-col md="6">
-            <b-form-group id="group-rntrc" label="RNTRC:" label-for="modelo">
-              <b-form-input v-model="form.rntrc" :state="validation('rntrc')" @keydown="clearError('rntrc')" id="rntrc" aria-describedby="rntrc-live-feedback"></b-form-input>
-              <has-error :form="form" field="rntrc"></has-error>
-            </b-form-group>
-          </b-col>
+          <l-form-select
+              label="Tipo:"
+              field="tipo"
+              :form="form"
+              :options="valuesForm['tipos']"
+              md="6"
+          ></l-form-select>
+          <!--  input RNTRC--> 
+          <l-form-input
+              field="rntrc"
+              label="RNTRC:"
+              :form="form"
+              md="6">
+          </l-form-input>
 
           <!--  Select Tipo de Carroceria-->
-          <b-col md="6">
-            <b-form-group label="Tipo de Carroceria:" label-for="tipo-carroceria">
-              <v-selectize v-model="form.tipo_carroceria" :options="valuesForm['tiposCarroceria']" id="tipo-carroceria" :state="validation('tipo_carroceria')" @keydown="clearError('tipo_carroceria')"></v-selectize>
-              <has-error :form="form" field="tipo_carroceria"></has-error>
-            </b-form-group>
-          </b-col>
+          <l-form-select
+              label="Tipo de Carroceria:"
+              field="tipo_carroceria"
+              :form="form"
+              :options="valuesForm['tiposCarroceria']"
+              md="6"
+          ></l-form-select>
           <!--  select tipo de Rodado -->
-          <b-col md="6">
-            <b-form-group label="Tipo de Rodado:" label-for="tipo-rodado">
-              <v-selectize v-model="form.tipo_rodado" :options="valuesForm['tiposRodado']" id="tipo-rodado" :state="validation('tipo_rodado')" @keydown="clearError('tipo_rodado')"></v-selectize>
-              <has-error :form="form" field="tipo_rodado"></has-error>
-            </b-form-group>
-          </b-col>
+          <l-form-select
+              label="Tipo de Rodado:"
+              field="tipo_rodado"
+              :form="form"
+              :options="valuesForm['tiposRodado']"
+              md="6"
+          ></l-form-select>
           <!--  input Tara -->
-          <b-col md="6">
-            <b-form-group id="group-tara" label="Tara:" label-for="tara">
-              <b-form-input v-model="form.tara" :state="validation('tara')" @keydown="clearError('tara')" id="tara" aria-describedby="tara-live-feedback"></b-form-input>
-              <has-error :form="form" field="tara"></has-error>
-            </b-form-group>
-          </b-col>
+          <l-form-input
+              field="tara"
+              label="Tara:"
+              :form="form"
+              md="6">
+          </l-form-input>
           <!--  input Capacidade -->
-
-          <b-col md="6">
-            <b-form-group id="group-capacidade" label="Capacidade:" label-for="capacidade">
-              <b-form-input v-model="form.capacidade" :state="validation('capacidade')" @keydown="clearError('capacidade')" id="capacidade" aria-describedby="capacidade-live-feedback"></b-form-input>
-              <has-error :form="form" field="capacidade"></has-error>
-            </b-form-group>
-          </b-col>
+          <l-form-input
+              field="capacidade"
+              label="Capacidade"
+              :form="form"
+              md="6">
+          </l-form-input>
           <!--  input Nome Proprietário -->
-          <b-col md="12">
-            <l-form-input field="nome_proprietario" label="Nome Proprietário" :form="form"></l-form-input>
-          </b-col>
+            <l-form-input 
+                field="nome_proprietario" 
+                label="Nome Proprietário" 
+                :form="form"
+                md="12">
+            </l-form-input>
           <!--  input CPF/CNPJ Proprietário -->
-          <b-col md="6">
-            <l-form-input field="proprietario_documento" label="input CPF/CNPJ Proprietário" :form="form"></l-form-input>
-          </b-col>
+            <l-form-input 
+                field="proprietario_documento" 
+                label="CPF/CNPJ Proprietário" 
+                :form="form" 
+                md="6"></l-form-input>
           <!--  I.E/RG Proprietário -->
-          <b-col md="6">
-            <l-form-input field="proprietario_ie" label="input I.E/RG Proprietário" :form="form"></l-form-input>
-          </b-col>
+            <l-form-input 
+                field="proprietario_ie" 
+                label="I.E/RG Proprietário" 
+                :form="form" 
+                md="6">
+            </l-form-input>
           <!--  select UF Proprietário -->
-          <b-col md="3">
             <l-form-select
                 label="UF Proprietário"
                 field="uf_proprietario"
                 :form="form"
                 :options="valuesForm['ufs']"
+                md="3"
             ></l-form-select>
-          </b-col>
           <!--  select tipo do Proprietário-->
-          <b-col md="4">
             <l-form-select
                 label="Tipo do Proprietário"
                 field="tipo_proprietario"
                 :form="form"
                 :options="valuesForm['tiposProprietario']"
+                md="4"
             ></l-form-select>
-          </b-col>
 
         </b-form-row>
 

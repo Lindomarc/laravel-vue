@@ -1,10 +1,10 @@
 <template>
+  <b-col :md="md">
     <b-form-group :label="label" :label-for="field">
-      <v-selectize v-model="form[field]" :options="options" id="field" 
-          :state="validation(field)" 
-          @keydown="clearError(field)"></v-selectize>
+      <v-selectize v-model="form[field]" :options="options" id="field" :state="validation(field)" @keydown="clearError(field)"></v-selectize>
       <has-error :form="form" :field="field"></has-error>
-    </b-form-group> 
+    </b-form-group>
+  </b-col>
 </template>
 
 <script>
@@ -17,6 +17,6 @@ export default {
     VSelectize,
   },
   mixins: [submits],
-  props: ['field', 'label','options', 'form']
+  props: ['field', 'label','options', 'form', 'md']
 }
 </script>

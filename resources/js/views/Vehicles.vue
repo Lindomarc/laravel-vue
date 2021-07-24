@@ -10,7 +10,11 @@
             <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav>
                 <b-nav-item>
-                  <b-button v-b-modal.createModal type="button" class="btn btn-success white" @click="clearForm()">
+                  <b-button 
+                      v-b-modal.createModal 
+                      type="button" 
+                      class="btn btn-success white" 
+                      @click="clearForm()">
                     <i class="fas fa-plus fa-fw"></i> {{ translate('Add') }}
                   </b-button>
                 </b-nav-item>
@@ -20,7 +24,18 @@
             <b-navbar-nav class="ml-auto">
               <b-nav-item right>
                 <b-button-group size="sm">
-                  <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" first-text="⏮" prev-text="⏪" next-text="⏩" last-text="⏭" align="left" @change="getResults"></b-pagination>
+                  <b-pagination 
+                      v-model="currentPage" 
+                      :total-rows="rows" 
+                      :per-page="perPage" 
+                      first-text="⏮" 
+                      prev-text="⏪" 
+                      next-text="⏩" 
+                      last-text="⏭" 
+                      align="left" 
+                      @change="getResults">
+                    
+                  </b-pagination>
                 </b-button-group>
               </b-nav-item>
             </b-navbar-nav>
@@ -28,20 +43,29 @@
           </b-navbar>
         </template>
 
-        <b-table striped hover :items="items.data" :fields="fields" responsive="sm" :current-page="currentPage">
+        <b-table striped hover 
+            :items="items.data" 
+            :fields="fields" 
+            responsive="sm" 
+            :current-page="currentPage">
 
           <template #cell(actions)="row">
             <div class="d-flex justify-content-end">
               <b-button-group>
                 <b-dropdown right text="" size="sm">
-                  <b-dropdown-item class="btn btn-sm btn-success dropdown-item" @click="info(row.item, 'edit')">
+                  <b-dropdown-item 
+                      class="btn btn-sm btn-success dropdown-item" 
+                      @click="info(row.item, 'edit')">
                     <i class=" fa fa-edit"></i> {{ translate('Edit') }}
                   </b-dropdown-item>
-                  <b-dropdown-item class="btn btn-sm btn-danger dropdown-item">
+                  <b-dropdown-item 
+                      class="btn btn-sm btn-danger dropdown-item">
                     <i class="fa fa-times"></i> {{ translate('Disable') }}
                   </b-dropdown-item>
                   <b-dropdown-divider></b-dropdown-divider>
-                  <b-dropdown-item class="btn btn-sm btn-danger dropdown-item" @click="info(row.item, 'delete')">
+                  <b-dropdown-item 
+                      class="btn btn-sm btn-danger dropdown-item" 
+                      @click="info(row.item, 'delete')">
                     <i class="fa fa-trash"></i> {{ translate('Deletar') }}
                   </b-dropdown-item>
                 </b-dropdown>
@@ -70,7 +94,6 @@
               md="5">
           </l-form-input>
           <!-- UF -->
-
           <l-form-select
               label="UF:"
               field="uf"
@@ -85,7 +108,6 @@
               :form="form"
               md="4">
           </l-form-input>
-
           <!-- Marca-->
           <l-form-input
               field="marca"
@@ -94,7 +116,6 @@
               md="6">
           </l-form-input>
           <!-- Modelo -->
-
           <l-form-input
               field="modelo"
               label="Modelo:"
@@ -116,7 +137,6 @@
               :form="form"
               md="6">
           </l-form-input>
-
           <!--  Select Tipo de Carroceria-->
           <l-form-select
               label="Tipo de Carroceria:"
@@ -131,8 +151,9 @@
               field="tipo_rodado"
               :form="form"
               :options="valuesForm['tiposRodado']"
-              md="6"
-          ></l-form-select>
+              md="6">
+            
+          </l-form-select>
           <!--  input Tara -->
           <l-form-input
               field="tara"
@@ -155,11 +176,11 @@
                 md="12">
             </l-form-input>
           <!--  input CPF/CNPJ Proprietário -->
-            <l-form-input 
-                field="proprietario_documento" 
+            <l-form-input field="proprietario_documento" 
                 label="CPF/CNPJ Proprietário:" 
                 :form="form" 
-                md="6"></l-form-input>
+                md="6">              
+            </l-form-input>
           <!--  I.E/RG Proprietário -->
             <l-form-input 
                 field="proprietario_ie" 
@@ -168,22 +189,21 @@
                 md="6">
             </l-form-input>
           <!--  select UF Proprietário -->
-            <l-form-select
-                label="UF Proprietário:"
-                field="proprietario_uf"
-                :form="form"
-                :options="valuesForm['ufs']"
-                md="3"
-            ></l-form-select>
+            <l-form-select 
+                label="UF Proprietário:" 
+                field="proprietario_uf" 
+                :form="form" 
+                :options="valuesForm['ufs']" 
+                md="4">            
+            </l-form-select>
           <!--  select tipo do Proprietário-->
             <l-form-select
                 label="Tipo do Proprietário:"
                 field="proprietario_tp"
-                :form="form"
-                :options="valuesForm['tiposProprietario']"
-                md="4"
-            ></l-form-select>
-
+                :form="form" 
+                :options="valuesForm['tiposProprietario']" 
+                md="6">              
+            </l-form-select>
         </b-form-row>
 
         <template #modal-footer="{submit, cancel}">

@@ -14,7 +14,7 @@ class VehicleController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         
     }
@@ -50,11 +50,9 @@ class VehicleController extends Controller
      * @return Response
      */
     public function store(Request $request): Response
-    {
-
-    	
+    {	
 	    $request->validate([
-		    'placa' => 'required|max:8',
+		    'placa' => 'required|max:8|unique:vehicles,placa',
 		    'cor' => 'required|max:10',
 		    'marca' => 'required|max:20',
 		    'modelo' => 'required|max:20',
@@ -62,10 +60,10 @@ class VehicleController extends Controller
 		    'rntrc' => 'required|min:8',
 		    'capacidade' => 'required|max:10',
 		    'proprietario_nome' => 'required|max:40',
-		    'proprietario_uf' => 'required|max:40',
 		    'proprietario_ie' => 'required|max:13',
-		    'proprietario_documento' => 'required|max:20',
+		    'proprietario_documento' => 'required|max:14',
 	    ]);
+	    
     	$response = [
     		'message' => 'ok'
 	    ];
@@ -75,10 +73,10 @@ class VehicleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Vehicle  $vehicle
+     * @param Vehicle $vehicle
      * @return Response
      */
-    public function show(Vehicle $vehicle)
+    public function show(Vehicle $vehicle): Response
     {
         
     }
@@ -87,10 +85,10 @@ class VehicleController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  \App\Models\Vehicle  $vehicle
+     * @param Vehicle $vehicle
      * @return Response
      */
-    public function update(Request $request, Vehicle $vehicle)
+    public function update(Request $request, Vehicle $vehicle): Response
     {
         //
     }
@@ -98,8 +96,8 @@ class VehicleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Vehicle  $vehicle
-     * @return Response
+     * @param Vehicle $vehicle
+     * @return void
      */
     public function destroy(Vehicle $vehicle)
     {

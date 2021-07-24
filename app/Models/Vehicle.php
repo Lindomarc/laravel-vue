@@ -9,6 +9,12 @@
 	{
 		use HasFactory;
 		
+		protected $fillable = [
+			'tipo', 'placa', 'uf', 'cor', 'marca', 'modelo', 'rntrc', 'tipo', 'tipo_carroceira',
+			'tipo_rodado', 'tara', 'capacidade', 'proprietario_documento',
+			'proprietario_nome', 'proprietario_ie', 'proprietario_uf', 'proprietario_tp'
+		];
+		
 		public static function tipos(): array
 		{
 			$items = [
@@ -34,7 +40,7 @@
 				"25" => "UTILITÁRIO",
 				"26" => "MOTOR-CASA"
 			];
-			return self::fixList($items);
+			return self::customList($items);
 			
 		}
 		
@@ -48,7 +54,7 @@
 				"05" => "UTILITARIO",
 				"06" => "OUTROS"
 			];
-			return self::fixList($items);
+			return self::customList($items);
 			
 		}
 		
@@ -62,7 +68,7 @@
 				"04" => "PORTA CONTAINER",
 				"05" => "SLIDER"
 			];
-			return self::fixList($items);
+			return self::customList($items);
 			
 		}
 		
@@ -74,7 +80,7 @@
 				"2" => "OUTROS"
 			];
 			
-			return self::fixList($items);
+			return self::customList($items);
 		}
 		
 		public static function cUF(): array
@@ -108,10 +114,11 @@
 				'35' => 'SP',
 				'17' => 'TO'
 			];
-			return self::fixList($items);
+			
+			return self::customList($items);
 		}
 		
-		private static function fixList(array $items):array
+		private static function customList(array $items):array
 		{
 			foreach ($items as $value => $label){
 				$values[] = [

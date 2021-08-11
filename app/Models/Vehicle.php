@@ -1,20 +1,20 @@
 <?php
-	
+
 	namespace App\Models;
-	
+
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
-	
+
 	class Vehicle extends Model
 	{
 		use HasFactory;
-		
+
 		protected $fillable = [
-			'tipo', 'placa', 'uf', 'cor', 'marca', 'modelo', 'rntrc', 'tipo', 'tipo_carroceira',
+			'tipo', 'placa', 'uf', 'cor', 'marca', 'modelo', 'rntrc', 'tipo', 'tipo_carroceria',
 			'tipo_rodado', 'tara', 'capacidade', 'proprietario_documento',
 			'proprietario_nome', 'proprietario_ie', 'proprietario_uf', 'proprietario_tp'
 		];
-		
+
 		public static function tipos(): array
 		{
 			$items = [
@@ -41,9 +41,9 @@
 				"26" => "MOTOR-CASA"
 			];
 			return self::customList($items);
-			
+
 		}
-		
+
 		public static function tiposRodado(): array
 		{
 			$items = [
@@ -55,13 +55,13 @@
 				"06" => "OUTROS"
 			];
 			return self::customList($items);
-			
+
 		}
-		
+
 		public static function tiposCarroceria(): array
 		{
 			$items = [
-				"00" => "NAO APLICAVEL",
+				"00" => "NAO APLICÁVEL",
 				"01" => "ABERTA",
 				"02" => "FECHADA/BAU",
 				"03" => "GRANELEIRA",
@@ -69,9 +69,9 @@
 				"05" => "SLIDER"
 			];
 			return self::customList($items);
-			
+
 		}
-		
+
 		public static function tiposProprietario(): array
 		{
 			$items = [
@@ -79,13 +79,13 @@
 				"1" => "TAC INDEPENDENTE",
 				"2" => "OUTROS"
 			];
-			
+
 			return self::customList($items);
 		}
-		
+
 		public static function cUF(): array
 		{
-			$items = [				
+			$items = [
 				'12' => 'AC',
 				'27' => 'AL',
 				'13' => 'AM',
@@ -114,10 +114,10 @@
 				'35' => 'SP',
 				'17' => 'TO'
 			];
-			
+
 			return self::customList($items);
 		}
-		
+
 		private static function customList(array $items):array
 		{
 			foreach ($items as $value => $label){
@@ -128,5 +128,33 @@
 			}
 			return $values??[];
 		}
-		
+
+		public function setUfAttribute($value)
+        {
+            $this->attributes['uf'] = $value['value'];
+        }
+		public function setProprietarioUfAttribute($value)
+        {
+            $this->attributes['proprietario_uf'] = $value['value'];
+        }
+
+		public function setProprietarioTpAttribute($value)
+        {
+            $this->attributes['proprietario_tp'] = $value['value'];
+        }
+
+		public function setTipoRodadoAttribute($value)
+        {
+            $this->attributes['tipo_rodado'] = $value['value'];
+        }
+		public function setTipoAttribute($value)
+        {
+            $this->attributes['tipo'] = $value['value'];
+        }
+		public function setTipoCarroceriaAttribute($value)
+        {
+            $this->attributes['tipo_carroceria'] = $value['value'];
+        }
+
+
 	}

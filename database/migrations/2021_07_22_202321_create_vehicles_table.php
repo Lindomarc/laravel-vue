@@ -21,20 +21,21 @@ class CreateVehiclesTable extends Migration
 	        $table->string('marca', 20);
 	        $table->string('modelo', 20);
 	        $table->string('rntrc', 12);
-	
-	
+
+
 	        $table->string('tipo', 2);
-	        $table->string('tipo_carroceira', 2);
+	        $table->string('tipo_carroceria', 2);
 	        $table->string('tipo_rodado', 2);
-	
+
 	        $table->string('tara', 10);
 	        $table->string('capacidade', 10);
-	
+
 	        $table->string('proprietario_documento', 14);
 	        $table->string('proprietario_nome', 40);
 	        $table->string('proprietario_ie', 13);
 	        $table->string('proprietario_uf', 2);
 	        $table->integer('proprietario_tp');
+	        $table->boolean('ativo')->default(1);
             $table->timestamps();
         });
     }

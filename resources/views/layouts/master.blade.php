@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   {{--  CSRF Token --}}
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="stylesheet" href="{{asset('/css/app.css')}}">
+    <link rel="stylesheet" href="{{mix('/css/app.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper"  id="app">
@@ -63,7 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->          
+               with font-awesome or any other icon font library -->
           <li class="nav-item">
             <router-link to="/dashboard" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt blue"></i>
@@ -72,16 +72,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
-          
+
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-file-invoice"></i>
               <p>
-                Perfil
+                MDF-e
               </p>
             </router-link>
           </li>
 
+
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-file-code"></i>
+                <p>
+                    Cadastros
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <router-link to="/veiculos" class="nav-link">
+                        <i class="fa fa-veiculos nav-car"></i>
+                        <p>Veículos</p>
+                    </router-link>
+                </li>
+            </ul>
+        </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -106,7 +124,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
-                    
+
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link"
                     onclick="event.preventDefault();
@@ -118,8 +136,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
               @csrf
             </form>
           </li>
-          
-          
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -179,6 +197,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
-<script src="{{asset('js/app.js')}}"></script>
+<script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>

@@ -14,20 +14,20 @@ class VehicleController extends Controller
      *
      * @return Response
      */
-    public function index(): Response
+    public function index()
     {
-        
+        return Vehicle::where('ativo', 1)->paginate(10);
     }
-	
+
 	public function form(){
-		
+
 		$tipos = Vehicle::tipos();
 		$tiposRodado = Vehicle::tiposRodado();
 		$tiposCarroceria = Vehicle::tiposCarroceria();
 		$tiposProprietario = Vehicle::tiposProprietario();
-		
+
 		$ufs = Vehicle::cUF();
-		
+
 		$data = [
 			'tipos' => $tipos,
 			'tiposRodado'=> $tiposRodado,
@@ -35,11 +35,11 @@ class VehicleController extends Controller
 			'tiposProprietario' => $tiposProprietario,
 			'ufs' => $ufs,
 		];
-		
+
 		$response = [
 			'infos' => $data
 		];
-		
+
 		return response($response);
 	}
 
@@ -50,9 +50,11 @@ class VehicleController extends Controller
      * @return Response
      */
     public function store(Request $request): Response
-    {	
-	    $request->validate([
+    {
+
+        $request->validate([
 		    'placa' => 'required|max:8|unique:vehicles,placa',
+		    'uf' => 'required',
 		    'cor' => 'required|max:10',
 		    'marca' => 'required|max:20',
 		    'modelo' => 'required|max:20',
@@ -63,9 +65,11 @@ class VehicleController extends Controller
 		    'proprietario_ie' => 'required|max:13',
 		    'proprietario_documento' => 'required|max:14',
 	    ]);
-	    
+        $vehicle = Vehicle::create($request->all());
+
     	$response = [
-    		'message' => 'ok'
+    		'message' => 'ok',
+            'data' => $vehicle
 	    ];
         return response($response);
     }
@@ -78,7 +82,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle): Response
     {
-        
+
     }
 
     /**

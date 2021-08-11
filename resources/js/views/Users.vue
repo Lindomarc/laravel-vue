@@ -28,7 +28,7 @@
                   </b-dropdown-item>
                   <b-dropdown-divider></b-dropdown-divider>
                   <b-dropdown-item class="btn btn-sm btn-danger dropdown-item" @click="info(row.item, 'delete')">
-                      <i class="fa fa-trash"></i> Deletar                    
+                      <i class="fa fa-trash"></i> Deletar
                   </b-dropdown-item>
                 </b-dropdown>
               </b-button-group>
@@ -36,7 +36,7 @@
           </template>
 
         </b-table>
-        
+
         <template #footer>
           <!--<pagination :data="items" -->
           <!--    align="right"-->
@@ -46,10 +46,10 @@
               v-model="currentPage"
               :total-rows="rows"
               :per-page="perPage"
-              first-text="⏮"
-              prev-text="⏪"
-              next-text="⏩"
-              last-text="⏭"
+              first-text="Primeiro"
+              prev-text="Anterior"
+              next-text="Próximo"
+              last-text="Ultimo"
               class="mt-4"
               align="right"
               @change="getResults"></b-pagination>
@@ -59,19 +59,19 @@
 
     <!-- Modal -->
     <form>
-      
+
       <b-modal :title="this.formTitle()" ref="createModal"  id="createModal">
 
         <b-form-group id="group-name" label="Nome:" label-for="name">
-          <b-form-input v-model="form.name" 
-               :state="validation('name')" @keydown="clearError('name')" id="name" 
+          <b-form-input v-model="form.name"
+               :state="validation('name')" @keydown="clearError('name')" id="name"
               aria-describedby="name-live-feedback"></b-form-input>
           <has-error :form="form" field="name"></has-error>
         </b-form-group>
 
         <b-form-group label="E-mail:" label-for="email">
-          <b-form-input v-model="form.email" :state="validation('email')" @keydown="clearError('email')" 
-              type="email" name="email" 
+          <b-form-input v-model="form.email" :state="validation('email')" @keydown="clearError('email')"
+              type="email" name="email"
               id="email"></b-form-input>
           <has-error :form="form" field="email"></has-error>
         </b-form-group>
@@ -94,11 +94,11 @@
           </b-col>
 
           <b-col>
-            <b-form-group id="group-password-confirmation" label="Confirmação de Senha:" 
+            <b-form-group id="group-password-confirmation" label="Confirmação de Senha:"
                 label-for="password-confirmation">
               <b-form-input
                   type="password"
-                  v-model="form.password_confirmation" 
+                  v-model="form.password_confirmation"
                   :state="validation('password')"
                   id="password-confirmation"></b-form-input>
               <has-error :form="form" field="password_confirmation"></has-error>
@@ -142,7 +142,7 @@ export default {
         email: '',
         password: '',
         password_confirmation: '',
-        type: ''
+        role: ''
       }),
       errors:{},
       isEdit: false,
@@ -160,7 +160,7 @@ export default {
         {key: 'email_verified_at', label: 'Verificado', sortable: true, class: 'text-center'},
         {key: 'status', label: 'Status', sortable: true, class: 'text-center'},
         {key: 'actions', label: 'Actions'}
-      ],    
+      ],
       infoModal: {
         id: 'info-modal',
         title: '',
@@ -173,14 +173,14 @@ export default {
       return key;
     },
     info(item, action) {
-      
+
       if (action === 'delete') {
         this.delete(item.id, this.Model)
       }
       if (action === 'edit') {
         this.editForm(item, this.Model)
       }
-      
+
     },
     clearForm() {
       this.isEdit = false;

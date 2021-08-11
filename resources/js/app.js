@@ -11,6 +11,8 @@ import {PaginationPlugin, BPagination,BootstrapVue, IconsPlugin} from 'bootstrap
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import VueAdminLte from '@cookieseater/vue-adminlte3';
+
 import Form from 'vform'
 import {AlertError, HasError} from 'vform/src/components/bootstrap4'
 import 'selectize/dist/css/selectize.css'
@@ -30,6 +32,7 @@ require('./bootstrap');
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+Vue.use(VueAdminLte, {/* options */});
 
 window.Form = Form;
 

@@ -40,7 +40,7 @@
 				"25" => "UTILITÁRIO",
 				"26" => "MOTOR-CASA"
 			];
-			return self::customList($items);
+			return self::selectizeList($items);
 
 		}
 
@@ -54,7 +54,7 @@
 				"05" => "UTILITARIO",
 				"06" => "OUTROS"
 			];
-			return self::customList($items);
+			return self::selectizeList($items);
 
 		}
 
@@ -68,7 +68,7 @@
 				"04" => "PORTA CONTAINER",
 				"05" => "SLIDER"
 			];
-			return self::customList($items);
+			return self::selectizeList($items);
 
 		}
 
@@ -80,81 +80,73 @@
 				"2" => "OUTROS"
 			];
 
-			return self::customList($items);
+			return self::selectizeList($items);
 		}
 
 		public static function cUF(): array
 		{
-			$items = [
-				'12' => 'AC',
-				'27' => 'AL',
-				'13' => 'AM',
-				'16' => 'AP',
-				'29' => 'BA',
-				'23' => 'CE',
-				'53' => 'DF',
-				'32' => 'ES',
-				'52' => 'GO',
-				'21' => 'MA',
-				'31' => 'MG',
-				'50' => 'MS',
-				'51' => 'MT',
-				'15' => 'PA',
-				'25' => 'PB',
-				'26' => 'PE',
-				'22' => 'PI',
-				'41' => 'PR',
-				'33' => 'RJ',
-				'24' => 'RN',
-				'11' => 'RO',
-				'14' => 'RR',
-				'43' => 'RS',
-				'28' => 'SE',
-				'42' => 'SC',
-				'35' => 'SP',
-				'17' => 'TO'
-			];
-
-			return self::customList($items);
+			return self::selectizeList(listUfs());
 		}
 
-		private static function customList(array $items):array
+		private static function selectizeList(array $items):array
 		{
-			foreach ($items as $value => $label){
-				$values[] = [
-					'value' => $value,
-					'label' => $value . ' - '. $label
-				];
-			}
-			return $values??[];
+            $values = [];
+            if ($items){
+                foreach ($items as $value => $label){
+                    $values[] = [
+                        'value' => $value,
+                        'label' => $value . ' - '. $label
+                    ];
+                }
+            }
+			return $values;
 		}
 
-		public function setUfAttribute($value)
-        {
-            $this->attributes['uf'] = $value['value'];
-        }
-		public function setProprietarioUfAttribute($value)
-        {
-            $this->attributes['proprietario_uf'] = $value['value'];
-        }
+//		private function resolveGetSelectize($value){
+//
+//            return [
+//                'value' => $this->attributes[$value],
+//                'label' =>'tests'
+//            ];
+//        }
 
-		public function setProprietarioTpAttribute($value)
-        {
-            $this->attributes['proprietario_tp'] = $value['value'];
-        }
+//        public function getUfAttribute()
+//        {
+//            return $this->resolveGetSelectize('uf');
+//        }
 
-		public function setTipoRodadoAttribute($value)
-        {
-            $this->attributes['tipo_rodado'] = $value['value'];
-        }
-		public function setTipoAttribute($value)
-        {
-            $this->attributes['tipo'] = $value['value'];
-        }
-		public function setTipoCarroceriaAttribute($value)
-        {
-            $this->attributes['tipo_carroceria'] = $value['value'];
-        }
+//		public function setUfAttribute($value)
+//        {
+//            var_dump($value);
+//            $this->attributes['uf'] = $value['value'];
+//        }
+//        public function getProprietarioUfAttribute()
+//        {
+//            return $this->resolveGetSelectize('proprietario_uf');
+//        }
+
+//		public function setProprietarioUfAttribute($value)
+//        {
+//            $this->attributes['proprietario_uf'] = $value['value'];
+//        }
+//
+//		public function setProprietarioTpAttribute($value)
+//        {
+//            $this->attributes['proprietario_tp'] = $value['value'];
+//        }
+//
+//		public function setTipoRodadoAttribute($value)
+//        {
+//            $this->attributes['tipo_rodado'] = $value['value'];
+//        }
+//		public function setTipoAttribute($value)
+//        {
+//            $this->attributes['tipo'] = $value['value'];
+//        }
+//		public function setTipoCarroceriaAttribute($value)
+//        {
+//            $this->attributes['tipo_carroceria'] = $value['value'];
+//        }
 
 
 	}

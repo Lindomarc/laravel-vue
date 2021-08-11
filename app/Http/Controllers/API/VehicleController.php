@@ -94,7 +94,8 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle): Response
     {
-        //
+        $vehicle->fill($request->all());
+        $vehicle->save();
     }
 
     /**

@@ -3,42 +3,43 @@ import axios from "axios";
 export default {
     mixins: [toast],
     methods: {
-        
+
         getHost(){
             let protocol = location.protocol;
-            let slashes = protocol.concat("//");             
+            let slashes = protocol.concat("//");
             return slashes.concat(window.location.host);
         },
-        
+
         translate(key){
             return key;
         },
-        
+
         loadItems() {
             this.getResults(this.currentPage);
         },
-        
+
         loadValuesForm(){
             let app_url = this.getHost();
 
             this.$Progress.start()
 
             let url = `${app_url}/api/${this.Model}/form`;
-            
+
             let response;
-            
-            response = this.form.get(url);    
+
+            response = this.form.get(url);
 
             response.then(({data}) => {
+                console.log(data['infos'])
                 this.valuesForm = data['infos'];
                 this.$Progress.finish();
             }).catch(({response}) => {
                 this.$Progress.fail();
             });
-            
+
 
         },
-        
+
         create(model, item = {}) {
             this.$Progress.start()
             let app_url = this.getHost();
@@ -51,12 +52,12 @@ export default {
             }
             let response;
             try{
-                 response = this.form[method](url)    
+                 response = this.form[method](url)
             } catch (e) {
                 // console.log(e)
 
             }
-             
+
             response.then(({data}) => {
 
                 this.$refs['createModal'].hide()
@@ -77,7 +78,7 @@ export default {
             });
 
         },
-        
+
         delete(id, model) {
             let message = this.translate('It will not be possible to undo this action!')
             this.$bvModal.msgBoxConfirm(message, {
@@ -112,14 +113,14 @@ export default {
                 console.warn(err)
             })
         },
-        
+
         validateEmail(email) {
             if (email){
                 let parse_mail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return parse_mail.test(email);
             }
         },
-        
+
         info(item, action) {
 
             if (action === 'delete') {
@@ -130,13 +131,13 @@ export default {
             }
 
         },
-        
+
         clearForm() {
             this.isEdit = false;
             this.form.reset();
             this.form.clear();
         },
-        
+
         editForm(item) {
             this.form.reset();
             this.form.clear();
@@ -144,17 +145,17 @@ export default {
             this.form.fill(item);
             this.$refs['createModal'].show();
         },
-        
+
         validation(field) {
             if (this.form.errors.has(field)){
                 return !this.form.errors.has(field);
             }
         },
-        
+
         clearError(field) {
             this.form.errors.clear(field)
         },
-        
+
         getResults(page = 1) {
             this.$Progress.start();
             let response = axios.get(`api/${this.Model}`,{
@@ -171,7 +172,7 @@ export default {
             });
 
         },
-        
+
     },
 
 }

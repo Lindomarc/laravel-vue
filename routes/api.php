@@ -1,7 +1,7 @@
 <?php
-	
+
 	use Illuminate\Support\Facades\Route;
-	
+
 	/*
 	|--------------------------------------------------------------------------
 	| API Routes
@@ -14,20 +14,20 @@
 	*/
 //	Route::post('login', [App\Http\Controllers\API\UserController::class, 'login']);
 //	Route::post('logout', [App\Http\Controllers\API\UserController::class, 'logout']);
-//	
+//
 //	Route::middleware('auth:api')->get('/user', function (Request $request) {
 //		return $request->user();
 //	});
-	
+
 //	Route::group(['middleware' => ['auth:sanctum']], function () {
-		
+
 		Route::get('/vehicle/form', [App\Http\Controllers\API\VehicleController::class, 'form'])
 			->name('vehicle.form');
-		
+
 		Route::apiResources([
 			'user' => App\Http\Controllers\API\UserController::class,
 			'mdfe' => App\Http\Controllers\API\MdfeController::class,
 			'vehicle' => App\Http\Controllers\API\VehicleController::class
 		]);
-		
+
 //	});

@@ -62,6 +62,9 @@ export default {
     },
     computed: {
         selectedItems: function () {
+            console.log(this.form[this.field])
+            console.log(this.field)
+            console.log(this.selected.value)
               this.form[this.field] = this.selected.value
         }
     }

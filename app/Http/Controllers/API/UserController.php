@@ -17,9 +17,20 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::latest()->paginate(10);
+
+         try {
+             $response = User::where('status', '1')
+               // ->where('id','!=',auth('user'))
+                ->paginate(getenv('PAGINATE'));
+            $minus30days = minusDays();
+            $date = date('d/m/Y');
+
+        } catch (\Exception $exception) {
+            $response = $exception;
+        }
+        return  response($response);
     }
-	
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -31,32 +42,29 @@ class UserController extends Controller
 	    $request->validate([
 		    'name'=> 'required|min:3',
 		    'email' => 'email:rfc,dns|unique:users,email',
-		    'type'=>'required',
+		    'role'=>'required',
 		    'password' => 'required|min:8|confirmed'
 	    ]);
-	
+
 	    $data = [
 		    'name' => $request['name'],
 		    'email' => $request['email'],
-		    'type' => $request['type'],
-		    'bio' => $request['bio'],
-		    'photo' => $request['photo'],
+		    'role' => $request['role'],
 		    'password' => Hash::make($request['password'])
 	    ];
 	    $user = User::create($data);
-	
-	    $token = $user->createToken($request->email)->plainTextToken;
-	
-	    $response = [
+
+	    $token = $user->createToken($request['email'])->plainTextToken;
+
+	   return [
 		    'message' => __('User created with successfully.'),
 		    'variant' => 'success',
 		    'user' => $user,
 		    'token' => $token
 	    ];
-	
-	    return response($response);
+
     }
-	
+
 	/**
 	 * Display the specified resource.
 	 *
@@ -67,7 +75,7 @@ class UserController extends Controller
 	{
 		//
 	}
-	
+
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -83,10 +91,10 @@ class UserController extends Controller
 			'type' => 'required',
 			'password' => 'sometimes|required|min:8|confirmed'
 		]);
-		
+
 		$user->fill($request->all());
 	    $user->save();
-	
+
 	    return [
 		    'message'=> __('User edited with successfully.'),
 		    'variant' => 'success'

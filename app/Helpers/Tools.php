@@ -34,3 +34,16 @@ if (!function_exists('onlyNumber')) {
     }
 }
 
+if (!function_exists('minusDays')){
+
+    /**
+     *  Return date with subtracting the number of days
+     * informed in the initial will always be 'today'
+     * @param int $days
+     * @return string
+     */
+    function minusDays(int $days = 30)
+    {
+        return date('d-m-Y', strtotime("-{$days} days",strtotime(date('Y-m-d'))));
+    }
+}

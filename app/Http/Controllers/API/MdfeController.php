@@ -16,7 +16,18 @@ class MdfeController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $mdfes = Mdfe::where('status', '1')->paginate(getenv('PAGINATE'));
+            $minus30days = minusDays();
+            $date = date('d/m/Y');
+            $response = [
+                'data' => $mdfes
+            ];
+        } catch (\Exception $exception) {
+            $response = $exception;
+        }
+
+        return response($response);
     }
 
     /**

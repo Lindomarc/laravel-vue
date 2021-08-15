@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Vehicle;
+use App\Models\Veiculo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -16,17 +16,17 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return Vehicle::where('ativo', 1)->paginate(10);
+        return Veiculo::where('ativo', 1)->paginate(10);
     }
 
 	public function form(){
 
-		$tipos = Vehicle::tipos();
-		$tiposRodado = Vehicle::tiposRodado();
-		$tiposCarroceria = Vehicle::tiposCarroceria();
-		$tiposProprietario = Vehicle::tiposProprietario();
+		$tipos = Veiculo::tipos();
+		$tiposRodado = Veiculo::tiposRodado();
+		$tiposCarroceria = Veiculo::tiposCarroceria();
+		$tiposProprietario = Veiculo::tiposProprietario();
 
-		$ufs = Vehicle::cUF();
+		$ufs = Veiculo::cUF();
 
 		$data = [
 			'tipos' => $tipos,
@@ -65,7 +65,7 @@ class VehicleController extends Controller
 		    'proprietario_ie' => 'required|max:13',
 		    'proprietario_documento' => 'required|max:14',
 	    ]);
-        $vehicle = Vehicle::create($request->all());
+        $vehicle = Veiculo::create($request->all());
 
     	$response = [
     		'message' => 'ok',
@@ -77,10 +77,10 @@ class VehicleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Vehicle $vehicle
+     * @param Veiculo $vehicle
      * @return Response
      */
-    public function show(Vehicle $vehicle): Response
+    public function show(Veiculo $vehicle): Response
     {
 
     }
@@ -89,10 +89,10 @@ class VehicleController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Vehicle $vehicle
+     * @param Veiculo $vehicle
      * @return Response
      */
-    public function update(Request $request, Vehicle $vehicle): Response
+    public function update(Request $request, Veiculo $vehicle): Response
     {
         $vehicle->fill($request->all());
         $vehicle->save();
@@ -101,10 +101,10 @@ class VehicleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Vehicle $vehicle
+     * @param Veiculo $vehicle
      * @return void
      */
-    public function destroy(Vehicle $vehicle)
+    public function destroy(Veiculo $vehicle)
     {
         //
     }
